@@ -8,11 +8,11 @@ class CustomUserAPIList(generics.ListCreateAPIView):
     serializer_class = CustomUserSerializer
 
 
-class ustomUserUpdate(generics.RetrieveUpdateAPIView):
+class CustomUserUpdate(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 
-class ustomUserDestroy(generics.RetrieveUpdateAPIView):
+class CustomUserDestroy(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
