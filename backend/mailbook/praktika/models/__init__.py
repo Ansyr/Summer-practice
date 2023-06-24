@@ -5,3 +5,4 @@ from .location import Location
 from .region import Region
 from .sale import Sale
 from .userInfo import UserInfo
+from .user import CustomUser

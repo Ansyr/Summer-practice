@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, UserInfo, Sale, Region, Location, Education, Book
+from .models import Author, UserInfo, Sale, Region, Location, Education, Book, CustomUser
 
 # Register your models here.
 admin.site.register(Author)
@@ -10,3 +10,4 @@ admin.site.register(Location)
 admin.site.register(Region)
 admin.site.register(Sale)
 admin.site.register(UserInfo)
+admin.site.register(CustomUser)

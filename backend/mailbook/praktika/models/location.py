@@ -10,4 +10,4 @@ class Location(models.Model):
 
 
     def __str__(self):
-        return self.city
+        return f'{self.city} {self.microdistrict}'

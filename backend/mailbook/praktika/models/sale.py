@@ -7,5 +7,5 @@ class Sale(models.Model):
     amount = models.IntegerField(null=True,verbose_name='Количество')
 
 
-    def __float__(self):
-        return self.price
+    def __str__(self):
+        return f'{self.price} р.'
