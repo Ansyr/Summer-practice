@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import UserForm from "./components/user-form";
-import styles from './styles.module.scss'
+import BookForm from "./components/book-form";
 import {Typography} from "antd";
+import styles from './styles.module.scss'
 
 
-
-const UserCreatePage = () => {
+const BookCreatePage = () => {
 
     const [dataForm,setDataForm] = useState({
         lastname:'',
@@ -15,7 +14,6 @@ const UserCreatePage = () => {
         region: '',
         city: '',
         microdistrict: '',
-        phoneNum: '',
         houseNum: '',
         apartNum: '',
         book: ''
@@ -24,11 +22,11 @@ const UserCreatePage = () => {
 
     return (
         <>
-            <Typography.Title className={styles.userForm} level={2}>Добавить пользователя</Typography.Title>
-            <UserForm data={dataForm} onChange={setDataForm}/>
+            <Typography.Title className={styles.bookForm} level={2}>Добавить книгу</Typography.Title>
+            <BookForm data={dataForm} onChange={setDataForm}/>
         </>
 
     );
 };
 
-export default UserCreatePage;
+export default BookCreatePage;

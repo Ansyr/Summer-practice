@@ -8,6 +8,11 @@ import {
 import { Layout, Button, theme } from 'antd';
 import NavBar from "../shared/components/menu"
 import UserCreatePage from "../pages/create-user";
+import {Route, Routes} from "react-router-dom";
+import BookCreatePage from "../pages/create-book";
+import TableUserPage from "../pages/table-user";
+import TableBookPage from "../pages/table-book";
+
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -42,7 +47,13 @@ function App() {
                       background: colorBgContainer,
                   }}
               >
-                <UserCreatePage/>
+                  <Routes>
+                      <Route path={"/useradd"} element={<UserCreatePage/>}/>
+                      <Route path={"/book"} element={<BookCreatePage/>}/>
+                      <Route path={"/tableuser"} element={<TableUserPage/>}/>
+                      <Route path={"/tablebook"} element={<TableBookPage/>}/>
+                  </Routes>
+
               </Content>
           </Layout>
       </Layout>
