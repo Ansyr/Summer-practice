@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from mailbook.praktika.models import Sale
+from praktika.models import Sale
 
 
 class SaleSerializer(serializers.ModelSerializer):

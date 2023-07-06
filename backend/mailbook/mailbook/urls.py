@@ -22,10 +22,13 @@ from drf_spectacular.views import (
 
 from django.contrib import admin
 from django.urls import path
+from praktika import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('api/v1/user/', views.CustomUserAPIList.as_view()),
+    path('api/v1/fullbook/<int:pk>/', views.BookAuthorAPI.as_view()),
+    path('api/v1/fullbook/', views.BookAuthorAPI.as_view())
 ]
 urlpatterns += [
     path(

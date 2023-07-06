@@ -1,11 +1,12 @@
 import {Form, Input} from "antd";
+import {ChangeEvent} from "react";
 
 
 
 interface FormFieldProps {
     label: string
-    onChangeField: (name : any) => void,
-    value: string
+    onChangeField: (e: ChangeEvent<HTMLInputElement>) => void,
+    value: string | number
 }
 
 
