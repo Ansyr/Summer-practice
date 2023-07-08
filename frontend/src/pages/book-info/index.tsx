@@ -1,19 +1,25 @@
-import {useDeleteFullBookMutation, useFetchFullBookQuery, useUpdateFullBookMutation} from "./model/api.ts";
+import {
+    useCreateFullBookMutation,
+    useDeleteFullBookMutation,
+    useFetchFullBookQuery,
+    useUpdateFullBookMutation
+} from "./model/api.ts";
 import BookTable from "./components/book-table";
 
 const BookInfo = () => {
     const {data: fullBookInfo, error, isLoading} = useFetchFullBookQuery([])
     const [deleteFullBookInfo] = useDeleteFullBookMutation()
     const [updateFullBookInfo] = useUpdateFullBookMutation()
+
     const handleDeleteFullBookInfo = (id: string) => {
         if (fullBookInfo) {
             deleteFullBookInfo(id)
         }
     }
 
-    const handleUpdateFullBookInfo = (id: string) => {
+    const handleUpdateFullBookInfo = (data) => {
         if (fullBookInfo) {
-            updateFullBookInfo(id)
+            updateFullBookInfo(data)
         }
     }
 

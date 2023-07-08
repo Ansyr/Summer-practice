@@ -9,6 +9,7 @@ import {Route, Routes} from "react-router-dom";
 import NavBar from "../shared/components/navbar";
 import styles from "./styles.module.scss"
 import BookInfo from "../pages/book-info";
+import BookStatistic from "../pages/book-statistic";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                         {/*<Route path={"/book"} element={<BookCreatePage/>}/>*/}
                         {/*<Route path={"/tableuser"} element={<TableUserPage/>}/>*/}
                         <Route path={"/bookinfo"} element={<BookInfo/>}/>
+                        <Route path={"/popularbook"} element={<BookStatistic/>}/>
                     </Routes>
 
                 </Content>

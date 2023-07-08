@@ -1,59 +1,58 @@
-import {Form} from "antd";
-import FormField from "../../../../shared/components/form-field";
-import {FullBookInfo} from "../../model/type.ts";
-import {ChangeEvent, useMemo, useState} from "react";
+import { Form, Input, Button } from "antd";
+import {useEffect} from "react";
+
+const UpdateDataBook = ({ initialValues, onSave, onCancel }) => {
+    const [form] = Form.useForm();
+    const handleSave = () => {
+        form.validateFields().then((values) => {
+            onSave(values);
+        });
+    };
 
 
-interface UpdateDataBookProps {
-    data: FullBookInfo,
-    onChange: (data: FullBookInfo) => void
-    onSubmit: (id: string) => void
-}
+    useEffect(() => {
+        form.setFieldsValue(initialValues);
+    }, [form, initialValues]);
 
-const UpdateDataBook = (props: UpdateDataBookProps) => {
-    const {data,onChange,onSubmit} = props
-    const [dataForm,setDataForm] = useState(data)
-    const onChangeField = useMemo(() => (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
-        onChange({...data, [name]: e.currentTarget.value})
-    }, [data]);
     return (
-        <>
-            <Form
-                onSubmit={onSubmit}
-                labelCol={{span: 6}}
-                wrapperCol={{span: 14}}
-                layout="horizontal"
-                style={{maxWidth: 600}}
-            >
+        <Form form={form} layout="vertical">
+            <Form.Item name={["id"]} ><div></div></Form.Item>
+            <Form.Item name={["author","firstname"]} label="Имя автора" rules={[{ required: true, message: "Введите имя" }]}>
+                <Input />
+            </Form.Item>
+            <Form.Item name={["author","lastname"]} label="Фамилия автора" rules={[{ required: true, message: "Введите фамилию" }]}>
+                <Input />
+            </Form.Item>
+            <Form.Item name={["author","surname"]} label="Отчество автора">
+                <Input />
+            </Form.Item>
+
+            <Form.Item name={["book_name"]} label="Название книги" rules={[{ required: true, message: "Введите название книги" }]}>
+                <Input />
+            </Form.Item>
+
+            <Form.Item name={["publish_year"]} label="Год публикации" rules={[{ required: true, message: "Введите год публикации" }]}>
+                <Input />
+            </Form.Item>
 
 
-                <FormField label={"Фамилия автора"} value={data?.author?.lastname}
-                           onChangeField={onChangeField("lastname")}/>
+            <Form.Item name={["sale","price"]} label="Цена" rules={[{ required: true, message: "Введите цену" }]}>
+                <Input />
+            </Form.Item>
 
-                <FormField label={"Имя автора"} value={data?.author?.firstname}
-                           onChangeField={onChangeField("firstname")}/>
+            <Form.Item name={["sale","discount"]} label="Скидка">
+                <Input />
+            </Form.Item>
 
-                <FormField label={"Отчество автора"}
-                           value={data?.author?.surname ? data.author.surname : 'отсутствует'}
-                           onChangeField={onChangeField("surname")}/>
+            <Form.Item name={["sale","amount"]} label="Количество" rules={[{ required: true, message: "Введите количество" }]}>
+                <Input />
+            </Form.Item>
 
-
-                <FormField label={"Дата публикации"} value={data?.publishYear}
-                           onChangeField={onChangeField("publishYear")}/>
-
-
-                <FormField label={"Цена"} value={data?.sale?.price} onChangeField={onChangeField("price")}/>
-
-                <FormField label={"Скидка"}
-                           value={data.sale?.discount ? data.sale.discount : 'отсутствует'}
-                           onChangeField={onChangeField("sale")}/>
-
-                <FormField label={"Количество"} value={data?.sale?.amount}
-                           onChangeField={onChangeField("amount")}/>
-
-                <FormField label={"Книга"} value={data?.bookName} onChangeField={onChangeField("bookName")}/>
-            </Form>
-        </>
+            <Button type="primary" onClick={handleSave}>
+                Save
+            </Button>
+            <Button onClick={onCancel}>Cancel</Button>
+        </Form>
     );
 };
 

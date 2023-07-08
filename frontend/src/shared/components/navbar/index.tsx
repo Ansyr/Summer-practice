@@ -34,6 +34,11 @@ const items: MenuItem[] = [
             getItem("Создать", "5",<Link to={"/useradd"}><PlusCircleOutlined/></Link>),
             getItem("Таблица", "6",<Link to={"/bookinfo"}><TableOutlined /></Link>)
         ],
+    ),
+    getItem('Статистика', '7',        <BookOutlined/>,[
+            getItem("Продаваемые книги", "8",<Link to={"/popularbook"}><PlusCircleOutlined/></Link>),
+            getItem("Таблица", "9",<Link to={"/bookinfo"}><TableOutlined /></Link>)
+        ],
     )
 ];
 const NavBar = () => {
