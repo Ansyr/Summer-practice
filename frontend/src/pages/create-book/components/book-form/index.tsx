@@ -5,6 +5,8 @@ import {
 
 import {ChangeEvent, useMemo, useState} from "react";
 import FormField from "../../../../shared/components/form-field";
+import {rules} from "@typescript-eslint/eslint-plugin";
+import {useForm} from "antd/es/form/Form";
 
 interface DataFromBook {
     key?: number,
@@ -26,6 +28,7 @@ interface UserFormProps {
 
 const BookForm = (props: UserFormProps) => {
     const {data, onChange,onSubmit} = props;
+    const {form} = useForm()
     const [dataForm,setDataForm] = useState({
         lastname: "",
         firstname: "",
@@ -44,9 +47,8 @@ const BookForm = (props: UserFormProps) => {
 
     return (
         <>
-
-
             <Form
+                form={form}
                 onSubmitCapture={onSubmit}
                 labelCol={{span: 6}}
                 wrapperCol={{span: 14}}
@@ -55,11 +57,11 @@ const BookForm = (props: UserFormProps) => {
             >
 
 
-                <FormField label={"Фамилия автора"} value={data.lastname} onChangeField={onChangeField("lastname")}/>
+                <FormField label={"Фамилия автора"} value={data.lastname} onChangeField={onChangeField("lastname")} required={true} message={"Введите фамилию"}/>
 
-                <FormField label={"Имя автора"} value={data.firstname} onChangeField={onChangeField("firstname")}/>
+                <FormField label={"Имя автора"} value={data.firstname} onChangeField={onChangeField("firstname")} message={"Введите имя"}/>
 
-                <FormField label={"Отчество автора"} value={data.surname} onChangeField={onChangeField("surname")}/>
+                <FormField label={"Отчество автора"} value={data.surname} onChangeField={onChangeField("surname")} message={"Введите отчество"}/>
 
 
                 <FormField label={"Дата публикации"} value={data.publishYear} onChangeField={onChangeField("publishYear")}/>

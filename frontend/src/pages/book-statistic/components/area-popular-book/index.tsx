@@ -31,7 +31,7 @@ export const data = {
 
 const AreaPopularBooks = () => {
     return (
-    <div style={{width:300}}>
+    <div style={{}}>
         <PolarArea
             width={100}
             height={50}

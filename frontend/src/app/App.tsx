@@ -10,6 +10,7 @@ import NavBar from "../shared/components/navbar";
 import styles from "./styles.module.scss"
 import BookInfo from "../pages/book-info";
 import BookStatistic from "../pages/book-statistic";
+import BookCreatePage from "../pages/create-book";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
                 >
                     <Routes>
                         {/*<Route path={"/useradd"} element={<UserCreatePage/>}/>*/}
-                        {/*<Route path={"/book"} element={<BookCreatePage/>}/>*/}
+                        <Route path={"/bookadd"} element={<BookCreatePage/>}/>
                         {/*<Route path={"/tableuser"} element={<TableUserPage/>}/>*/}
                         <Route path={"/bookinfo"} element={<BookInfo/>}/>
                         <Route path={"/popularbook"} element={<BookStatistic/>}/>

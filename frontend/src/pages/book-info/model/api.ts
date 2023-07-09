@@ -23,7 +23,7 @@ export const fullBookInfoAPI = createApi({
         }),
         createFullBook: build.mutation<FullBookInfo, FullBookInfo>({
             query: (fullBook) => ({
-                url: '/fullBook',
+                url: '/fullbook',
                 method: "POST",
                 body: fullBook,
             }),

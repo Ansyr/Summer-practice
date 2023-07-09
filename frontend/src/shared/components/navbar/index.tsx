@@ -31,7 +31,7 @@ const items: MenuItem[] = [
         getItem("Таблица", "3",<Link to={"/tableuser"}><TableOutlined /></Link>)
     ]),
     getItem('Книга', '4',        <BookOutlined/>,[
-            getItem("Создать", "5",<Link to={"/useradd"}><PlusCircleOutlined/></Link>),
+            getItem("Создать", "5",<Link to={"/bookadd"}><PlusCircleOutlined/></Link>),
             getItem("Таблица", "6",<Link to={"/bookinfo"}><TableOutlined /></Link>)
         ],
     ),

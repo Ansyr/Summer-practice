@@ -40,7 +40,6 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     };
 
     const handleSave = (values) => {
-        console.log(values)
         update(values);
         setModalVisible(false);
     };
@@ -62,6 +61,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                     String(obj.sale.discount).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
             },
+            responsive: ['lg'],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.author.firstname <= val2.author.firstname
             }
@@ -94,12 +94,15 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
             }
         }, {
             title: "Год публикации",
-            key: [searchText],
+            key: ["publish_year"],
             dataIndex: "publish_year",
             filteredValue: [searchText],
+
+            responsive: ['lg'],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.publishYear > val2.publishYear
             }
+
         }, {
             title: "Цена",
             key: ["sale", "price"],
@@ -157,7 +160,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                         }}
                     />
 
-                    <Table columns={columns} dataSource={data.length ? data : []} loading={isLoading}></Table>
+                    <Table columns={columns} dataSource={data.length ? data : []} loading={isLoading}  rowKey="id" scroll={{ x: "max-content" }}></Table>
                     <Modal open={modalVisible} footer={null} onCancel={() => setModalVisible(false)}>
                         {editingItem && (
                             <UpdateDataBook initialValues={editingItem} onSave={handleSave}

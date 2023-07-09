@@ -27,6 +27,7 @@ const BookInfo = () => {
         <div>
             <BookTable isLoading={isLoading} error={error ? error : ''} data={fullBookInfo ? fullBookInfo : []}
                        remove={handleDeleteFullBookInfo} update={handleUpdateFullBookInfo}/>
+
         </div>
     );
 };
