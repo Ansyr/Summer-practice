@@ -10,7 +10,7 @@ const BookInfo = () => {
     const {data: fullBookInfo, error, isLoading} = useFetchFullBookQuery([])
     const [deleteFullBookInfo] = useDeleteFullBookMutation()
     const [updateFullBookInfo] = useUpdateFullBookMutation()
-
+    console.log(fullBookInfo)
     const handleDeleteFullBookInfo = (id: string) => {
         if (fullBookInfo) {
             deleteFullBookInfo(id)
@@ -27,6 +27,7 @@ const BookInfo = () => {
         <div>
             <BookTable isLoading={isLoading} error={error ? error : ''} data={fullBookInfo ? fullBookInfo : []}
                        remove={handleDeleteFullBookInfo} update={handleUpdateFullBookInfo}/>
+
         </div>
     );
 };

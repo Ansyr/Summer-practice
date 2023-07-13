@@ -4,38 +4,38 @@ import {FullBookInfo} from "./type.ts";
 
 export const fullBookInfoAPI = createApi({
     reducerPath: 'fullBookInfoAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://127.0.0.1:8000/api/v1'}),
-    tagTypes: ['fullbook'],
+    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000'}),
+    tagTypes: ['book'],
     endpoints: (build) => ({
         fetchFullBook: build.query<FullBookInfo[], FullBookInfo[]>({
             query: () => ({
-                url: '/fullbook',
+                url: '/book',
             }),
-            providesTags: () => ['fullbook']
+            providesTags: () => ['book']
         }),
         deleteFullBook: build.mutation<FullBookInfo, string>({
             query: (id) => ({
-                url: `/fullbook/${id}/`,
+                url: `/book/${id}/`,
                 method: "DELETE",
                 body: id,
             }),
-            invalidatesTags: ['fullbook']
+            invalidatesTags: ['book']
         }),
         createFullBook: build.mutation<FullBookInfo, FullBookInfo>({
             query: (fullBook) => ({
-                url: '/fullBook',
+                url: '/book',
                 method: "POST",
                 body: fullBook,
             }),
-            invalidatesTags: ['fullbook']
+            invalidatesTags: ['book']
         }),
         updateFullBook: build.mutation<FullBookInfo, FullBookInfo>({
             query: (fullBookInfo: FullBookInfo) => ({
-                url: `/fullbook/${fullBookInfo.id}/`,
-                method: "PUT",
+                url: `/book/${fullBookInfo.id}/`,
+                method: "PATCH",
                 body: fullBookInfo,
             }),
-            invalidatesTags: ['fullbook']
+            invalidatesTags: ['book']
         }),
 
     }),

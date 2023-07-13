@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    container_name: "Ansyr"
+    container_name: "Ansyr-practice"
     image: postgres:latest
     restart: on-failure
     environment:

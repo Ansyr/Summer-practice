@@ -30,5 +30,5 @@ env
 .idea
 __pycache__
 .env
-migrations
+dist
 dump

@@ -5,7 +5,6 @@ import {DeleteFilled, EditOutlined} from "@ant-design/icons";
 import {FullBookInfo} from "../../model/type.ts";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
-import ModalWindow from "../../../../shared/components/modal-window";
 import UpdateDataBook from "../update-data-book";
 import {useCreateFullBookMutation} from "../../model/api.ts";
 
@@ -40,7 +39,6 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     };
 
     const handleSave = (values) => {
-        console.log(values)
         update(values);
         setModalVisible(false);
     };
@@ -49,8 +47,8 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     const columns = [
         {
             title: "Имя",
-            key: ["author", "firstname"],
-            dataIndex: ["author", "firstname"],
+            key: ["author", "first_name"],
+            dataIndex: ["author", "first_name"],
             filteredValue: [searchText],
             onFilter: (value: string, obj: FullBookInfo) => {
                 return String(obj.author.firstname).toLowerCase().includes(value.toLowerCase()) ||
@@ -62,22 +60,23 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                     String(obj.sale.discount).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
             },
+            responsive: ['lg'],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.author.firstname <= val2.author.firstname
             }
         },
         {
             title: "Фамилия",
-            key: ["author", "lastname"],
-            dataIndex: ["author", "lastname"],
+            key: ["author", "last_name"],
+            dataIndex: ["author", "last_name"],
             filteredValue: [searchText],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.author.lastname > val2.author.lastname
             }
         }, {
             title: "Отчество",
-            dataIndex: ["author", "surname"],
-            key: ["author", "lastname"],
+            dataIndex: ["author", "sur_name"],
+            key: ["author", "sur_name"],
             filteredValue: [searchText],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.author.surname > val2.author.surname
@@ -94,12 +93,15 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
             }
         }, {
             title: "Год публикации",
-            key: [searchText],
+            key: ["publish_year"],
             dataIndex: "publish_year",
             filteredValue: [searchText],
+
+            responsive: ['lg'],
             sorter: (val1: FullBookInfo, val2: FullBookInfo) => {
                 return val1.publishYear > val2.publishYear
             }
+
         }, {
             title: "Цена",
             key: ["sale", "price"],
@@ -157,7 +159,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                         }}
                     />
 
-                    <Table columns={columns} dataSource={data.length ? data : []} loading={isLoading}></Table>
+                    <Table columns={columns} dataSource={data.length ? data : []} loading={isLoading}  rowKey="id" scroll={{ x: "max-content" }}></Table>
                     <Modal open={modalVisible} footer={null} onCancel={() => setModalVisible(false)}>
                         {editingItem && (
                             <UpdateDataBook initialValues={editingItem} onSave={handleSave}
