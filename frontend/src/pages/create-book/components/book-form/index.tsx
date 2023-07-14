@@ -1,79 +1,36 @@
 import {
-    Button,
     Form,
 } from 'antd';
 
-import {ChangeEvent, useMemo, useState} from "react";
+import {ChangeEvent} from "react";
 import FormField from "../../../../shared/components/form-field";
-import {rules} from "@typescript-eslint/eslint-plugin";
-import {useForm} from "antd/es/form/Form";
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "../../../../shared/hooks/redux.ts";
+import {setFormData} from "../../model/slice.ts";
 
-interface DataFromBook {
-    key?: number,
-    lastname: string,
-    firstname: string,
-    surname: string,
-    bookName: string,
-    price: number | string,
-    sale: number | string,
-    publishYear: string,
-    amount: number | string,
-}
 
 interface UserFormProps {
-    data: DataFromBook
-    onChange: (data: DataFromBook) => void
     onSubmit?: () => void
 }
 
-const BookForm = (props: UserFormProps) => {
-    const {data, onChange,onSubmit} = props;
-    const {form} = useForm()
-    const [dataForm,setDataForm] = useState({
-        lastname: "",
-        firstname: "",
-        surname: "",
-        bookName: "",
-        price: "",
-        sale: "",
-        publishYear: "",
-        amount: "",
-    })
+const   BookForm = (props: UserFormProps) => {
+    const {onSubmit} = props;
+    const dispatch = useDispatch()
+    const {data} = useAppSelector(state => state.bookForm)
+    const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setFormData({...data, [name]: e.currentTarget.value}));
+    };
 
-    const onChangeField = useMemo(()=>(name: string) => (e: ChangeEvent<HTMLInputElement>) => {
-        onChange({...data, [name]: e.currentTarget.value})
-    },[data]);
-
-
+    console.log(data)
     return (
         <>
             <Form
-                form={form}
                 onSubmitCapture={onSubmit}
                 labelCol={{span: 6}}
                 wrapperCol={{span: 14}}
                 layout="horizontal"
                 style={{maxWidth: 600}}
             >
-
-
-                <FormField label={"Фамилия автора"} value={data.lastname} onChangeField={onChangeField("lastname")} required={true} message={"Введите фамилию"}/>
-
-                <FormField label={"Имя автора"} value={data.firstname} onChangeField={onChangeField("firstname")} message={"Введите имя"}/>
-
-                <FormField label={"Отчество автора"} value={data.surname} onChangeField={onChangeField("surname")} message={"Введите отчество"}/>
-
-
-                <FormField label={"Дата публикации"} value={data.publishYear} onChangeField={onChangeField("publishYear")}/>
-
-
-                <FormField label={"Цена"} value={data.price} onChangeField={onChangeField("price")}/>
-
-                <FormField label={"Скидка"} value={data.sale} onChangeField={onChangeField("sale")}/>
-
-                <FormField label={"Количество"} value={data.amount} onChangeField={onChangeField("amount")}/>
-
-                <FormField label={"Книга"} value={data.bookName} onChangeField={onChangeField("bookName")}/>
 
 
             </Form>

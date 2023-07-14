@@ -27,16 +27,17 @@ class UserController {
 
             const locationRepository = getRepository(Location)
             const location = await locationRepository.findOne({
-                where:{
-                    id:locationId
+                where: {
+                    id: locationId
                 }
             })
+
 
             const userInfo = userInfoRepository.create({
                 birth_date: birthDate,
                 degree_education: degreeEducation,
             });
-            if(!location){
+            if (!location) {
                 return res.status(500).json({message: 'User not found'});
             }
             userInfo.location = location
@@ -64,6 +65,19 @@ class UserController {
         } catch (error) {
             console.error(error);
             return res.status(500).json({message: 'Internal server error'});
+        }
+    }
+
+    async showAll(req: Request, res: Response) {
+        try {
+            const userRepository = getRepository(User)
+            const users = await userRepository.find({
+                relations:["user_info","books","user_info.location"],
+            })
+            return res.status(200).json(users)
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({message: "Internal server error"});
         }
     }
 }

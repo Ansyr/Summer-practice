@@ -56,9 +56,9 @@ class AuthorController {
             author.sur_name = surname
 
 
-            await authorRepository.save(author)
+            const updatedAuthor = await authorRepository.save(author);
 
-            return res.status(201).json(author)
+            return res.status(201).json(updatedAuthor);
 
         } catch (error) {
             console.error(error);

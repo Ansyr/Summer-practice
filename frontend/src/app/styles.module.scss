@@ -2,3 +2,21 @@
   height: 100%;
   width: 100%;
 }
+input[type="date"]{
+  background-color: #0080ff;
+  padding: 5px;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 40%;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+::-webkit-calendar-picker-indicator{
+  background-color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}

@@ -45,13 +45,26 @@ class BookController {
         return res.status(201).json(book);
     }
 
-    async showAll(req: Request, res: Response) {
+    async showAllInfoBook(req: Request, res: Response) {
         try {
             const bookRepository = getRepository(Book);
             const books = await bookRepository.find({
                 relations: ["author", "sale", "users"],
             });
 
+            return res.json(books);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({message: "Internal server error"});
+        }
+    }
+
+    async showAll(req:Request,res:Response){
+        try {
+            const bookRepository = getRepository(Book)
+            const books = await bookRepository.find({
+                relations: ["author"]
+            })
             return res.json(books);
         } catch (error) {
             console.error(error);

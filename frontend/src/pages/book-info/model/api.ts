@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {FullBookInfo} from "./type.ts";
+import {FullBookInfo, Book} from "./type.ts";
 
 
 export const fullBookInfoAPI = createApi({
@@ -13,6 +13,7 @@ export const fullBookInfoAPI = createApi({
             }),
             providesTags: () => ['book']
         }),
+
         deleteFullBook: build.mutation<FullBookInfo, string>({
             query: (id) => ({
                 url: `/book/${id}/`,
@@ -45,6 +46,6 @@ export const {
     useFetchFullBookQuery,
     useDeleteFullBookMutation,
     useUpdateFullBookMutation,
-    useCreateFullBookMutation
+    useCreateFullBookMutation ,
 } = fullBookInfoAPI
 

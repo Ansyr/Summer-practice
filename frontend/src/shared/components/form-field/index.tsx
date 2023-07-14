@@ -6,15 +6,15 @@ interface FormFieldProps {
     onChangeField: (e: ChangeEvent<HTMLInputElement>) => void;
     value: string | number;
     required: boolean;
-    message: string;
+    name:string
 }
 
 const FormField = (props: FormFieldProps) => {
-    const { label, onChangeField, value, required, message } = props;
-    const validationRules = required ? [{ required: true, message }] : [];
+    const { label, onChangeField, value, required,name } = props;
+    const validationRules = required ? [{ required: true, message: "Заполните поле" }] : [];
 
     return (
-        <Form.Item label={label} rules={validationRules}>
+        <Form.Item name={name} label={label} rules={validationRules}>
             <Input value={value} onChange={onChangeField} />
         </Form.Item>
     );

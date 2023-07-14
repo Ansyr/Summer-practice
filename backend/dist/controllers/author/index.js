@@ -55,8 +55,8 @@ class AuthorController {
                 author.first_name = firstname;
                 author.last_name = lastname;
                 author.sur_name = surname;
-                yield authorRepository.save(author);
-                return res.status(201).json(author);
+                const updatedAuthor = yield authorRepository.save(author);
+                return res.status(201).json(updatedAuthor);
             }
             catch (error) {
                 console.error(error);

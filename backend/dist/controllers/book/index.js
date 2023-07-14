@@ -46,12 +46,27 @@ class BookController {
             return res.status(201).json(book);
         });
     }
-    showAll(req, res) {
+    showAllInfoBook(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
                 const books = yield bookRepository.find({
                     relations: ["author", "sale", "users"],
+                });
+                return res.json(books);
+            }
+            catch (error) {
+                console.error(error);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+        });
+    }
+    showAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
+                const books = yield bookRepository.find({
+                    relations: ["author"]
                 });
                 return res.json(books);
             }

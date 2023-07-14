@@ -54,6 +54,21 @@ class UserController {
             }
         });
     }
+    showAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userRepository = (0, typeorm_1.getRepository)(user_1.User);
+                const users = yield userRepository.find({
+                    relations: ["user_info", "books", "user_info.location"],
+                });
+                return res.status(200).json(users);
+            }
+            catch (error) {
+                console.error(error);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+        });
+    }
 }
 module.exports = new UserController();
 //# sourceMappingURL=index.js.map

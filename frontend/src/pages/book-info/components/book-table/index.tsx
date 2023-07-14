@@ -1,6 +1,6 @@
 import {Button, Table, Form, Input, Popconfirm, Alert, Modal} from "antd";
 
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {DeleteFilled, EditOutlined} from "@ant-design/icons";
 import {FullBookInfo} from "../../model/type.ts";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
@@ -18,7 +18,7 @@ interface BookTableProps {
 }
 
 function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
-    const [dataSource, setDataSource] = useState<FullBookInfo[]>(data);
+
     const [searchText, setSearchText] = useState('')
     const [form] = Form.useForm();
     const [modalVisible, setModalVisible] = useState(false);

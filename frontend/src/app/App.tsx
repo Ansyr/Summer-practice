@@ -11,6 +11,9 @@ import styles from "./styles.module.scss"
 import BookInfo from "../pages/book-info";
 import BookStatistic from "../pages/book-statistic";
 import BookCreatePage from "../pages/create-book";
+import UserInfo from "../pages/user-info";
+import UserCreate from "../pages/create-user";
+import CreateAuthor from "../pages/create-author";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -46,9 +49,10 @@ function App() {
                     }}
                 >
                     <Routes>
-                        {/*<Route path={"/useradd"} element={<UserCreatePage/>}/>*/}
+                        <Route path={"/useradd"} element={<UserCreate/>}/>
                         <Route path={"/bookadd"} element={<BookCreatePage/>}/>
-                        {/*<Route path={"/tableuser"} element={<TableUserPage/>}/>*/}
+                        <Route path={"/authoradd"} element={<CreateAuthor/>}/>
+                        <Route path={"/tableuser"} element={<UserInfo/>}/>
                         <Route path={"/bookinfo"} element={<BookInfo/>}/>
                         <Route path={"/popularbook"} element={<BookStatistic/>}/>
                     </Routes>

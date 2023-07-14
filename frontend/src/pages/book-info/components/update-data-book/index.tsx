@@ -17,13 +17,13 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel }) => {
         return (
             <Form form={form} layout="vertical">
                 <Form.Item name={["id"]} ><div></div></Form.Item>
-                <Form.Item name={["author","firstname"]} label="Имя автора" rules={[{ required: true, message: "Введите имя" }]}>
+                <Form.Item name={["author","first_name"]} label="Имя автора" rules={[{ required: true, message: "Введите имя" }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={["author","lastname"]} label="Фамилия автора" rules={[{ required: true, message: "Введите фамилию" }]}>
+                <Form.Item name={["author","last_name"]} label="Фамилия автора" rules={[{ required: true, message: "Введите фамилию" }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={["author","surname"]} label="Отчество автора">
+                <Form.Item name={["author","sur_name"]} label="Отчество автора">
                     <Input />
                 </Form.Item>
 
