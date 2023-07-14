@@ -48,7 +48,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         const connection = yield (0, typeorm_1.createConnection)({
             type: "postgres",
             host: "localhost",
-            port: 12345,
+            port: 54321,
             username: "postgres",
             password: "1234",
             database: "Bookmail",
