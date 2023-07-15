@@ -6,8 +6,10 @@ const initialState =  {
     data: {
         bookName: '',
         publishYear: '',
-        authorId: 0,
-        saleId: ''
+        authorId: null,
+        price: null,
+        discount: null,
+        amount: null,
     },
 
 }
@@ -20,8 +22,11 @@ export const BookFormSlice = createSlice({
         setFormData(state,action){
             state.data = action.payload
         },
+        setSelectedAuthorIds(state,action){
+            state.data.authorId = action.payload
+        }
     }
 })
 
-export const {setFormData} = BookFormSlice.actions
+export const {setFormData,setSelectedAuthorIds} = BookFormSlice.actions
 export default BookFormSlice

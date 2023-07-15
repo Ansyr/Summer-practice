@@ -69,10 +69,8 @@ const UserForm = (props: UserFormProps) => {
             <DateFormat label={"Дата рождения"} value={data.birthDate} onChangeField={onChangeField("birthDate")}></DateFormat>
 
 
-
-
             <SelectField
-
+                mode="multiple"
                 data={books}
                 displayField={"book_name"}
                 onChange={handleSelectChange}

@@ -7,7 +7,7 @@ import {Sale} from "../../models/enteties/sale";
 
 class BookController {
     async create(req: Request, res: Response) {
-        const {bookName, publishYear, authorId, saleId} = req.body;
+        const {bookName, publishYear, authorId, discount, price, amount} = req.body;
         const bookRepository = getRepository(Book)
         const authorRepository = getRepository(Author)
         const saleRepository = getRepository(Sale)
@@ -19,27 +19,25 @@ class BookController {
             }
         })
 
-        const sale = await saleRepository.findOne({
-            where: {
-                id: saleId
-            }
-        })
-
 
         const book = bookRepository.create({
             book_name: bookName,
             publish_year: publishYear,
         });
+        const sale = saleRepository.create({
+            price: price,
+            discount: discount,
+            amount: amount
+        })
         if (!author) {
             return res.status(500).json({message: 'User not found'});
         }
-        if (!sale) {
-            return res.status(500).json({message: 'Sale not found'});
-        }
+
 
         book.author = author
-        book.sale = sale
 
+        await saleRepository.save(sale)
+        book.sale = sale
         await bookRepository.save(book);
 
         return res.status(201).json(book);
@@ -59,7 +57,7 @@ class BookController {
         }
     }
 
-    async showAll(req:Request,res:Response){
+    async showAll(req: Request, res: Response) {
         try {
             const bookRepository = getRepository(Book)
             const books = await bookRepository.find({

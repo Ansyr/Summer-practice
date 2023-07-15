@@ -16,7 +16,7 @@ const sale_1 = require("../../models/enteties/sale");
 class BookController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { bookName, publishYear, authorId, saleId } = req.body;
+            const { bookName, publishYear, authorId, discount, price, amount } = req.body;
             const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
             const authorRepository = (0, typeorm_1.getRepository)(author_1.Author);
             const saleRepository = (0, typeorm_1.getRepository)(sale_1.Sale);
@@ -25,22 +25,20 @@ class BookController {
                     id: authorId
                 }
             });
-            const sale = yield saleRepository.findOne({
-                where: {
-                    id: saleId
-                }
-            });
             const book = bookRepository.create({
                 book_name: bookName,
                 publish_year: publishYear,
             });
+            const sale = saleRepository.create({
+                price: price,
+                discount: discount,
+                amount: amount
+            });
             if (!author) {
                 return res.status(500).json({ message: 'User not found' });
             }
-            if (!sale) {
-                return res.status(500).json({ message: 'Sale not found' });
-            }
             book.author = author;
+            yield saleRepository.save(sale);
             book.sale = sale;
             yield bookRepository.save(book);
             return res.status(201).json(book);

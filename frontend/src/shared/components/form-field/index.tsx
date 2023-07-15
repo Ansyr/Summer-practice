@@ -4,7 +4,7 @@ import { ChangeEvent } from "react";
 interface FormFieldProps {
     label: string;
     onChangeField: (e: ChangeEvent<HTMLInputElement>) => void;
-    value: string | number;
+    value: string | number | null;
     required: boolean;
     name:string
 }

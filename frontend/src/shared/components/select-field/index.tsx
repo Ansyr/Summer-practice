@@ -1,14 +1,19 @@
-import {Select} from "antd";
+import {Col, Select, Typography} from "antd";
+import styles from "./styles.module.scss"
 
-const SelectField = ({ data, valueField, displayField, onChange,selectedValues,...props} : any) => {
-
+const SelectField = ({ data, valueField, displayField, onChange,selectedValues,text,...props} : any) => {
+    console.log(data)
     return (
-        <div>
+        <div className={styles.selectFieldText}>
+            <Col>
+                <Typography>{text}</Typography>
+            </Col>
+
             <Select
 
                 style={{ width: "50%", height: "50%" }}
-                mode="multiple"
                 onChange={onChange}
+                
                 value={selectedValues}
                 showSearch={false}
                 allowClear={true}

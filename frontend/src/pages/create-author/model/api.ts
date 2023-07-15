@@ -15,10 +15,16 @@ export const authorApi = createApi({
             }),
             invalidatesTags: ['author']
         }),
+        fetchAuthor: build.query<Author[],Author[]> ({
+            query: () =>( {
+                url: '/author',
+            }),
+            providesTags: () => ['author']
+        })
     }),
 })
 
 export const {
-    useCreateAuthorMutation
+    useCreateAuthorMutation,useFetchAuthorQuery
 } = authorApi
 

@@ -7,7 +7,6 @@ const UserCreate = () => {
     return (
         <div>
             <UserForm books={books? books : []}/>
-           {/*<SelectField data={books?books : []}/>*/}
         </div>
     );
 };
