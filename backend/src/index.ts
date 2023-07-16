@@ -13,8 +13,8 @@ const main = async () => {
     try {
       const connection = await createConnection({
             type: "postgres",
-            host: "localhost",
-            port: 54321,
+            host: "postgres",
+            port: 5432,
             username: "postgres",
             password: "1234",
             database: "Bookmail",
@@ -27,11 +27,12 @@ const main = async () => {
         app.use(router)
 
 
-        app.listen(PORT, () => {
+        app.listen(PORT,"0.0.0.0",  () => {
             console.log(`Server running on port: ${PORT}`)
         })
 
     } catch (e) {
+        console.log(e)
         console.error("Unable to connect to Postgres")
         throw new Error("Unable to connect to db")
     }

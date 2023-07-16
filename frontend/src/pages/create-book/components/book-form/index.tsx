@@ -3,36 +3,42 @@ import {
     Form, Input, message,
 } from 'antd';
 
-import {ChangeEvent} from "react";
-import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../../../shared/hooks/redux.ts";
-import {setFormData, setSelectedAuthorIds} from "../../model/slice.ts";
-import {useFetchAuthorQuery} from "../../../create-author/model/api.ts";
+import {ChangeEvent, useState} from "react";
+import {useFetchAuthorQuery} from "../../../../modules/author/api/api.ts";
 import SelectField from "../../../../shared/components/select-field";
-import {useCreateBookMutation} from "../../model/api.ts";
+import {useCreateBookMutation} from "../../../../modules/book/api/api.ts";
+
 
 
 const BookForm = () => {
-    const dispatch = useDispatch()
     const [form] = Form.useForm()
-    const {data} = useAppSelector(state => state.bookForm)
+
+    const [data,setData] = useState({
+        bookName: '',
+        publishYear: '',
+        authorId: null,
+        price: 0,
+        discount: 0,
+        amount: 0,
+    })
+
+    const [select,setSelect] = useState(null)
 
     const {data: authors} = useFetchAuthorQuery([])
     const [createBookApi] = useCreateBookMutation()
-    console.log(authors)
+
 
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setFormData({...data, [name]: e.currentTarget.value}));
+        setData({...data, [name]: e.currentTarget.value});
     };
 
-    const handleSelectChange = (selectedOptions: string) => {
-        dispatch(setSelectedAuthorIds(selectedOptions));
+    const handleSelectChange = (selectedOptions: number) => {
+       setSelect(selectedOptions);
     };
     const onSubmit = async () => {
         try {
             // Reset the form fields
-            console.log(data)
-            if (data.authorId === null) {
+            if (select === null) {
                 throw new Error()
             }
             await createBookApi({
@@ -40,7 +46,7 @@ const BookForm = () => {
                 publishYear: data.publishYear,
                 price: Number(data.price),
                 discount: Number(data.discount),
-                authorId: Number(data.authorId),
+                authorId: Number(select),
                 amount: Number(data.amount)
             })
 
@@ -48,7 +54,6 @@ const BookForm = () => {
             // Show success message
             message.success("Author added successfully");
             form.resetFields();
-
         } catch (error) {
             // Show error message
             message.error("Failed to add author");

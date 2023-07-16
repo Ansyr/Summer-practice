@@ -100,6 +100,7 @@ class BookController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
             const { id } = req.params;
             const { book_name, publish_year, authorId, price, discount, amount } = req.body;
             try {

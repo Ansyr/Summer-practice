@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {BookWithPrice} from "./type.ts";
+import {Book, BookWithPrice} from "./type.ts";
 
 
 
@@ -44,11 +44,17 @@ export const bookFormApi = createApi({
             }),
             invalidatesTags: ['book'],
 
-        })
+        }),
+        getAllBooks: build.query<Book[], Book[]>({
+            query: () => ({
+                url: '/book/allbook',
+            }),
+            providesTags: () => ['book']
+        }),
     }),
 })
 
 export const {
-    useCreateBookMutation,useDeleteBookMutation,useUpdateBookMutation,useFetchBookApiQuery
+    useCreateBookMutation,useDeleteBookMutation,useUpdateBookMutation,useFetchBookApiQuery, useGetAllBooksQuery
 } = bookFormApi
 

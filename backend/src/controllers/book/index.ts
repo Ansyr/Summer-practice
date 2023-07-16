@@ -10,6 +10,7 @@ class BookController {
     async create(req: Request, res: Response) {
         const {bookName, publishYear, authorId, discount, price, amount} = req.body;
         const bookRepository = getRepository(Book)
+
         const authorRepository = getRepository(Author)
         const saleRepository = getRepository(Sale)
 
@@ -19,6 +20,9 @@ class BookController {
                 id: authorId
             }
         })
+
+
+
 
 
         const book = bookRepository.create({
@@ -50,6 +54,7 @@ class BookController {
             const books = await bookRepository.find({
                 relations: ["author", "sale", "users"],
             });
+            console.log(books)
 
             return res.json(books);
         } catch (error) {
@@ -72,6 +77,7 @@ class BookController {
     }
 
     async update(req: Request, res: Response) {
+        console.log(req.body)
         const {id} = req.params;
         const {book_name, publish_year, authorId, price, discount, amount} = req.body;
         try {

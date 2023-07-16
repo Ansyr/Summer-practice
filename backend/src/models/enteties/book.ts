@@ -1,6 +1,6 @@
 import {
     BaseEntity,
-    Column,
+    Column, CreateDateColumn,
     Entity,
     JoinColumn, JoinTable,
     ManyToMany, ManyToOne, OneToOne, PrimaryColumn,
@@ -19,6 +19,9 @@ export class Book extends BaseEntity {
 
     @Column()
     publish_year:number
+
+    @Column({nullable: true})
+    added_count: number
 
     @ManyToMany(() => User, (user) => user.books)
     @JoinTable({
@@ -45,4 +48,20 @@ export class Book extends BaseEntity {
         name: "sale_id"
     })
     sale:Sale
+}
+
+
+@Entity()
+export class UserBook {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @CreateDateColumn()
+    added_date: Date;
+
+    @Column()
+    user_id: number;
+
+    @Column()
+    book_id: number;
 }

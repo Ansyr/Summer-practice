@@ -1,16 +1,39 @@
 version: '3.8'
 services:
   postgres:
-    container_name: "Ansyr-summer-practices"
     image: postgres:latest
     restart: on-failure
     environment:
-      POSTGRES_DB : Bookmail
-      POSTGRES_USER : postgres
-      POSTGRES_PASSWORD : 1234
-      POSTGRES_HOST : localhost
-      POSTGRES_PORT : 54321
+      POSTGRES_DB: Bookmail
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
     ports:
       - "54321:5432"
     volumes:
       - ./dump:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d Bookmail -U postgres" ]
+      interval: 5s
+      timeout: 20s
+      retries: 100
+    networks:
+      connect:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: always
+    networks:
+      connect:
+
+
+networks:
+  connect:
+    driver: bridge
+

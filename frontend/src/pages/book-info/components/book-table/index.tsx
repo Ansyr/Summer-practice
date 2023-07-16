@@ -1,4 +1,4 @@
-import {Button, Table, Form, Input, Popconfirm, Alert, Modal} from "antd";
+import {Button, Table, Form, Input, Popconfirm, Alert, Modal, message} from "antd";
 
 import {useState} from "react";
 import {DeleteFilled, EditOutlined} from "@ant-design/icons";
@@ -6,7 +6,7 @@ import {FullBookInfo} from "../../model/type.ts";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
 import UpdateDataBook from "../update-data-book";
-import {BookWithPrice} from "../../../create-book/model/type.ts";
+import {BookWithPrice} from "../../../../modules/book/api/type.ts";
 
 
 interface BookTableProps {
@@ -26,8 +26,6 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
 
 
 
-
-
     const handleDelete = (id: string) => {
         remove(id)
     };
@@ -38,11 +36,21 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
         setModalVisible(true);
     };
 
-    const handleSave = (values) => {
-        console.log(values)
-        update(values);
-        setModalVisible(false);
-    };
+    const handleSave = async (values: BookWithPrice) => {
+        try {
+            console.log(values)
+            // Call the update mutation from the API hook
+            await update(values);
+            message.success("Author added successfully");
+            form.resetFields();
+            setModalVisible(false);
+
+        } catch (error) {
+            // Handle any error that occurred during the update
+            console.log("Update error:", error);
+            message.error("Failed to add author");
+        }
+    }
 
 
     const columns = [

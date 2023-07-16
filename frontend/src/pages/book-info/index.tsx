@@ -1,6 +1,7 @@
 
 import BookTable from "./components/book-table";
-import {useDeleteBookMutation, useFetchBookApiQuery, useUpdateBookMutation} from "../create-book/model/api.ts";
+import {useDeleteBookMutation, useFetchBookApiQuery, useUpdateBookMutation} from "../../modules/book/api/api.ts";
+import {BookWithPrice} from "../../modules/book/api/type.ts";
 
 const BookInfo = () => {
     const {data: books, error, isLoading} = useFetchBookApiQuery([])
@@ -13,7 +14,7 @@ const BookInfo = () => {
         }
     }
 
-    const handleUpdateFullBookInfo = (data) => {
+    const handleUpdateFullBookInfo = (data: BookWithPrice) => {
         if (books) {
             updateBook(data)
         }

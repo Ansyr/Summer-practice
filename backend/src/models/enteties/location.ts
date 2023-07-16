@@ -4,7 +4,7 @@ import {
 
     PrimaryGeneratedColumn
 } from "typeorm"
-import {UserInfo} from "./user-info";
+
 
 
 @Entity('location')

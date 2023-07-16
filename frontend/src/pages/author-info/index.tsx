@@ -1,6 +1,6 @@
 import TableAuthors from "./components/table-authors";
 
-import {useDeleteAuthorMutation, useFetchAuthorQuery, useUpdateAuthorMutation} from "../create-author/model/api.ts";
+import {useDeleteAuthorMutation, useFetchAuthorQuery, useUpdateAuthorMutation} from "../../modules/author/api/api.ts";
 
 
 const AuthorInfo = () => {

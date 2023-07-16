@@ -35,3 +35,5 @@ export class User extends Person {
     )
     user_info: UserInfo
 }
+
+

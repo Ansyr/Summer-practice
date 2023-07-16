@@ -24,7 +24,7 @@ export const BookFormSlice = createSlice({
         },
         setSelectedAuthorIds(state,action){
             state.data.authorId = action.payload
-        }
+        },
     }
 })
 

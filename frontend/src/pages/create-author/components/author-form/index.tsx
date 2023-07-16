@@ -3,21 +3,21 @@ import {
     Form, Input, message,
 } from 'antd';
 
-import {ChangeEvent} from "react";
-import {useDispatch} from "react-redux";
-import {useAppSelector} from "../../../../shared/hooks/redux.ts";
-import {setFormData} from "../../model/slice.ts";
-import {useCreateAuthorMutation} from "../../model/api.ts";
+import {ChangeEvent, useState} from "react";
+import {useCreateAuthorMutation} from "../../../../modules/author/api/api.ts";
 
 
 
 const AuthorForm = () => {
-    const dispatch = useDispatch()
-    const {data} = useAppSelector(state => state.authorForm)
+    const [data,setdata] = useState({
+        lastname: '',
+        firstname: '',
+        surname: '',
+    })
     const [createAuthorApi]  = useCreateAuthorMutation()
     const [form] = Form.useForm()
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setFormData({...data, [name]: e.currentTarget.value}));
+        setdata(({...data, [name]: e.currentTarget.value}));
     };
 
     const onSubmit = async () => {

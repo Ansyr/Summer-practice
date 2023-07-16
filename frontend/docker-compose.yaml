@@ -1,0 +1,15 @@
+services:
+  frontend:
+    container_name: "Frontend-summer-practice"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      connect:
+
+
+networks:
+  connect:
+    driver: bridge

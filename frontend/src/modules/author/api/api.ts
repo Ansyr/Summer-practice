@@ -1,5 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {Author} from "../../../shared/interfaces/author";
+import {Author} from "./type.ts";
+
 
 
 export const authorApi = createApi({
