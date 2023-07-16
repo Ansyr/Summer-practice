@@ -2,7 +2,6 @@ import {Col, Select, Typography} from "antd";
 import styles from "./styles.module.scss"
 
 const SelectField = ({ data, valueField, displayField, onChange,selectedValues,text,...props} : any) => {
-    console.log(data)
     return (
         <div className={styles.selectFieldText}>
             <Col>
@@ -13,9 +12,9 @@ const SelectField = ({ data, valueField, displayField, onChange,selectedValues,t
 
                 style={{ width: "50%", height: "50%" }}
                 onChange={onChange}
-                
+                optionFilterProp="children"
                 value={selectedValues}
-                showSearch={false}
+                showSearch={true}
                 allowClear={true}
                 {...props}
             >

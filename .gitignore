@@ -30,5 +30,5 @@ env
 .idea
 __pycache__
 .env
-dist
+backend/dist
 dump

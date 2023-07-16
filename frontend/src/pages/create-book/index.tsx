@@ -1,6 +1,6 @@
 import BookForm from "./components/book-form";
 import {Typography} from "antd";
-import {useFetchAuthorQuery} from "../create-author/model/api.ts";
+
 
 
 

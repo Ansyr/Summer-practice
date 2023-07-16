@@ -25,7 +25,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     const [editingItem, setEditingItem] = useState(null);
 
 
-    const [createBookInfo] = useCreateFullBookMutation()
+    const [] = useCreateFullBookMutation()
 
 
     const handleDelete = (id: string) => {
@@ -39,6 +39,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     };
 
     const handleSave = (values) => {
+        console.log(values)
         update(values);
         setModalVisible(false);
     };

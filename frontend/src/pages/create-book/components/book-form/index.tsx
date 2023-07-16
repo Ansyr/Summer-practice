@@ -7,10 +7,10 @@ import {ChangeEvent} from "react";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../../shared/hooks/redux.ts";
 import {setFormData, setSelectedAuthorIds} from "../../model/slice.ts";
-import {useFetchAuthorMutation, useFetchAuthorQuery} from "../../../create-author/model/api.ts";
+import {useFetchAuthorQuery} from "../../../create-author/model/api.ts";
 import SelectField from "../../../../shared/components/select-field";
-import {setSelectedBookIds} from "../../../create-user/model/slice.ts";
 import FormField from "../../../../shared/components/form-field";
+import {useCreateBookMutation} from "../../model/api.ts";
 
 
 const BookForm = () => {
@@ -19,6 +19,7 @@ const BookForm = () => {
     const {data} = useAppSelector(state => state.bookForm)
 
     const {data: authors} = useFetchAuthorQuery([])
+    const [createBookApi] = useCreateBookMutation()
     console.log(authors)
 
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +32,19 @@ const BookForm = () => {
     const onSubmit = async () => {
         try {
             // Reset the form fields
+
             if (data.authorId === null){
                 throw new Error ()
             }
+            await createBookApi({
+                    bookName:data.bookName,
+                    publishYear: data.publishYear,
+                    price: Number(data.price),
+                    discount: Number(data.discount),
+                    authorId: Number(data.authorId),
+                    amount: Number(data.amount)
+                })
+
             await form.validateFields()
             // Show success message
             message.success("Author added successfully");

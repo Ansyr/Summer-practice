@@ -32,8 +32,8 @@ export const fullBookInfoAPI = createApi({
         }),
         updateFullBook: build.mutation<FullBookInfo, FullBookInfo>({
             query: (fullBookInfo: FullBookInfo) => ({
-                url: `/book/${fullBookInfo.id}/`,
-                method: "PUT",
+                url: `/book/:${fullBookInfo.id}/`,
+                method: "PATCH",
                 body: fullBookInfo,
             }),
             invalidatesTags: ['book']

@@ -12,12 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Author = void 0;
 const typeorm_1 = require("typeorm");
 const person_1 = require("../utils/person");
+const book_1 = require("./book");
 let Author = exports.Author = class Author extends person_1.Person {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], Author.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => book_1.Book, (book) => book.author),
+    __metadata("design:type", Array)
+], Author.prototype, "books", void 0);
 exports.Author = Author = __decorate([
     (0, typeorm_1.Entity)('author')
 ], Author);

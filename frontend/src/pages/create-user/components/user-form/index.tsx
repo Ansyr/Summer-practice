@@ -6,35 +6,17 @@ import {ChangeEvent} from "react";
 
 import FormField from "../../../../shared/components/form-field";
 import SelectField from "../../../../shared/components/select-field";
-import {Book} from "../../model/type.ts";
 import {useDispatch} from "react-redux";
 import {setSelectedBookIds, setFormData} from "../../model/slice.ts";
 import {useAppSelector} from "../../../../shared/hooks/redux.ts";
 import DateFormat from "../../../../shared/components/date-format";
+import {useGetAllBooksQuery} from "../../model/api.ts";
 
-interface User {
-    lastname: string,
-    firstname: string,
-    surname: string,
-    birthDate: string,
-    region: string,
-    city: string,
-    microdistrict: string,
-    houseNum: string,
-    apartNum: string
-    books: {
-        id: string
-    }[]
-}
 
-interface UserFormProps {
-    data: User,
-    books: Book[]
-    onSubmit?: () => void
-}
 
-const UserForm = (props: UserFormProps) => {
-    const {books, onSubmit} = props;
+
+const UserForm = () => {
+    const {data: books} = useGetAllBooksQuery([])
     const dispatch = useDispatch();
     const {data, selectedBookIds} = useAppSelector(state => state.userForm);
 
@@ -62,16 +44,16 @@ const UserForm = (props: UserFormProps) => {
             layout="horizontal"
             style={{maxWidth: 600}}
         >
-            <FormField required={true} value={data.lastname} label={"Фамилия"} onChangeField={onChangeField("lastname")}/>
-            <FormField required={true} value={data.firstname} label={"Имя"} onChangeField={onChangeField("firstname")}/>
-            <FormField required={true} value={data.surname} label={"Отчество"} onChangeField={onChangeField("surname")  }/>
+            <FormField required={true} value={data.lastname} label={"Фамилия"} onChangeField={onChangeField("lastname")} name={"last_name"}/>
+            <FormField required={true} value={data.firstname} label={"Имя"} onChangeField={onChangeField("firstname")} name={"first_name"}/>
+            <FormField required={true} value={data.surname} label={"Отчество"} onChangeField={onChangeField("surname")} name={"sur_name"}/>
 
             <DateFormat label={"Дата рождения"} value={data.birthDate} onChangeField={onChangeField("birthDate")}></DateFormat>
 
 
             <SelectField
                 mode="multiple"
-                data={books}
+                data={books? books : []}
                 displayField={"book_name"}
                 onChange={handleSelectChange}
                 valueField={"id"}

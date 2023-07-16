@@ -1,6 +1,6 @@
 import {
     Button,
-    Form, Input, message,
+    Form, message,
 } from 'antd';
 
 import {ChangeEvent} from "react";
@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../../shared/hooks/redux.ts";
 import {setFormData} from "../../model/slice.ts";
 import {useCreateAuthorMutation} from "../../model/api.ts";
+import {useFetchTableAuthorQuery} from "../../../author-info/model/api.ts";
 
 
 const AuthorForm = () => {
@@ -24,8 +25,6 @@ const AuthorForm = () => {
         try {
             await createAuthorApi(data);
             // Reset the form fields
-
-
             await form.validateFields()
             // Show success message
             message.success("Author added successfully");

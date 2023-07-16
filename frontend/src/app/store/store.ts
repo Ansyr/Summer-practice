@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     userForm: UserFormSlice,
     bookForm: BookFormSlice.reducer,
     authorForm: AuthorFormSlice.reducer,
-    [authorApi.reducerPath]: authorApi.reducer
+    [authorApi.reducerPath]: authorApi.reducer,
 })
 
 export const setupStore = () => {
@@ -24,7 +24,7 @@ export const setupStore = () => {
             fullBookInfoAPI.middleware,
             userInfoApi.middleware,
             bookApi.middleware,
-            authorApi.middleware
+            authorApi.middleware,
         ])
     })
 }

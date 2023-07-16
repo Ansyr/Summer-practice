@@ -3,7 +3,7 @@ import {
     Column,
     Entity,
     JoinColumn, JoinTable,
-    ManyToMany, OneToOne, PrimaryColumn,
+    ManyToMany, ManyToOne, OneToOne, PrimaryColumn,
     PrimaryGeneratedColumn
 } from "typeorm"
 import {User} from './user'
@@ -34,15 +34,9 @@ export class Book extends BaseEntity {
     })
     users:User[]
 
-
-    @OneToOne(
-        ()=>Author
-    )
-    @JoinColumn({
-        name:"author_id"
-    })
-    author: Author
-
+    @ManyToOne(() => Author, (author) => author.books)
+    @JoinColumn({ name: "author_id" })
+    author: Author;
 
     @OneToOne(
         () => Sale

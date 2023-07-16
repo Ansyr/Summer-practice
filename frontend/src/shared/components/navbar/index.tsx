@@ -30,15 +30,19 @@ const items: MenuItem[] = [
         getItem("Создать", "2",<Link to={"/useradd"}><PlusCircleOutlined/></Link>),
         getItem("Таблица", "3",<Link to={"/tableuser"}><TableOutlined /></Link>)
     ]),
-    getItem('Книга', '4',        <BookOutlined/>,[
-            getItem("книга", "5",<Link to={"/bookadd"}><PlusCircleOutlined/></Link>),
-            getItem("автор", "6",<Link to={"/authoradd"}><PlusCircleOutlined/></Link>),
-            getItem("Таблица", "7",<Link to={"/bookinfo"}><TableOutlined /></Link>)
+    getItem('Автор', '4',        <UserOutlined/>,[
+            getItem("Добавить", "5",<Link to={"/authoradd"}><PlusCircleOutlined/></Link>),
+            getItem("Таблица", "7",<Link to={"/authorinfo"}><TableOutlined /></Link>)
         ],
     ),
-    getItem('Статистика', '8',        <BookOutlined/>,[
-            getItem("Продаваемые книги", "9",<Link to={"/popularbook"}><PlusCircleOutlined/></Link>),
-            getItem("Таблица", "10",<Link to={"/bookinfo"}><TableOutlined /></Link>)
+    getItem('Книга', '8',        <BookOutlined/>,[
+            getItem("Добавить", "9",<Link to={"/bookadd"}><PlusCircleOutlined/></Link>),
+            getItem("Таблица", "11",<Link to={"/bookinfo"}><TableOutlined /></Link>)
+        ],
+    ),
+    getItem('Статистика', '12',        <BookOutlined/>,[
+            getItem("Продаваемые книги", "13",<Link to={"/popularbook"}><PlusCircleOutlined/></Link>),
+            getItem("Таблица", "14",<Link to={"/bookinfo"}><TableOutlined /></Link>)
         ],
     )
 ];

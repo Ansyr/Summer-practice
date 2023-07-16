@@ -5,6 +5,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel }) => {
         const [form] = Form.useForm();
         const handleSave = () => {
             form.validateFields().then((values) => {
+                console.log(values)
                 onSave(values);
             });
         };

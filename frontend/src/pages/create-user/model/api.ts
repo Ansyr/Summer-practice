@@ -13,6 +13,11 @@ export const bookApi = createApi({
             }),
             providesTags: () => ['allbook']
         }),
+        createBook: build.mutation<Book,Book> ({
+            query: () => ({
+                url: '/book'
+            })
+        })
     }),
 })
 

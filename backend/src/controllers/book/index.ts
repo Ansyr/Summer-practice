@@ -3,6 +3,7 @@ import {Book} from "../../models/enteties/book";
 import {Author} from "../../models/enteties/author";
 import {getRepository} from "typeorm";
 import {Sale} from "../../models/enteties/sale";
+import * as console from "console";
 
 
 class BookController {
@@ -61,7 +62,7 @@ class BookController {
         try {
             const bookRepository = getRepository(Book)
             const books = await bookRepository.find({
-                relations: ["author"]
+                relations: ["author","sale"]
             })
             return res.json(books);
         } catch (error) {
@@ -71,6 +72,7 @@ class BookController {
     }
 
     async update(req: Request, res: Response) {
+        console.log(req.body)
         const {id} = req.params;
         const {bookName, publishYear, authorId, saleId} = req.body;
         try {
@@ -81,7 +83,6 @@ class BookController {
                     id: id
                 }
             })
-
             // Return an error if the book is not found
             if (!book) {
                 return res.status(404).json({message: "Book not found"});

@@ -44,10 +44,8 @@ __decorate([
     __metadata("design:type", Array)
 ], Book.prototype, "users", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => author_1.Author),
-    (0, typeorm_1.JoinColumn)({
-        name: "author_id"
-    }),
+    (0, typeorm_1.ManyToOne)(() => author_1.Author, (author) => author.books),
+    (0, typeorm_1.JoinColumn)({ name: "author_id" }),
     __metadata("design:type", author_1.Author)
 ], Book.prototype, "author", void 0);
 __decorate([
