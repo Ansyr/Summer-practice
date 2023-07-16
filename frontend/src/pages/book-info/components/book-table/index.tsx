@@ -6,15 +6,15 @@ import {FullBookInfo} from "../../model/type.ts";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
 import UpdateDataBook from "../update-data-book";
-import {useCreateFullBookMutation} from "../../model/api.ts";
+import {BookWithPrice} from "../../../create-book/model/type.ts";
 
 
 interface BookTableProps {
-    data: FullBookInfo[],
+    data: BookWithPrice[],
     isLoading: boolean,
     error: FetchBaseQueryError | SerializedError | string,
     remove: (id: string) => void
-    update: (item: FullBookInfo) => void
+    update: (item: BookWithPrice) => void
 }
 
 function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
@@ -25,7 +25,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
     const [editingItem, setEditingItem] = useState(null);
 
 
-    const [] = useCreateFullBookMutation()
+
 
 
     const handleDelete = (id: string) => {
@@ -139,7 +139,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                         shape="circle"
                         onClick={() => handleEdit(record)}
                     />
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record)}>
                         <Button icon={<DeleteFilled/>} shape="circle" danger></Button>
                     </Popconfirm>
                 </div>

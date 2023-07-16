@@ -100,25 +100,50 @@ class BookController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
             const { id } = req.params;
-            const { bookName, publishYear, authorId, saleId } = req.body;
+            const { book_name, publish_year, authorId, price, discount, amount } = req.body;
             try {
                 const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
                 const book = yield bookRepository.findOne({
                     where: {
                         id: id
-                    }
+                    }, relations: ["sale"]
                 });
                 if (!book) {
                     return res.status(404).json({ message: "Book not found" });
                 }
-                book.book_name = bookName;
-                book.publish_year = publishYear;
+                book.book_name = book_name;
+                book.publish_year = publish_year;
                 book.author = authorId;
-                book.sale = saleId;
+                book.sale.price = price;
+                book.sale.discount = discount;
+                book.sale.amount = amount;
                 yield bookRepository.save(book);
                 return res.status(201).json(book);
+            }
+            catch (error) {
+                console.error(error);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(123);
+            const { id } = req.params;
+            try {
+                const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
+                const book = yield bookRepository.findOne({
+                    where: {
+                        id: id
+                    },
+                    relations: ["author", "sale", "users"]
+                });
+                if (!book) {
+                    return res.status(404).json({ message: "Book not found" });
+                }
+                yield bookRepository.remove(book);
+                return res.status(200).json({ message: "Book deleted successfully" });
             }
             catch (error) {
                 console.error(error);

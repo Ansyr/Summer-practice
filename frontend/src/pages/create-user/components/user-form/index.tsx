@@ -1,10 +1,9 @@
 import {
     Button,
-    Form,
+    Form, Input,
 } from 'antd';
 import {ChangeEvent} from "react";
 
-import FormField from "../../../../shared/components/form-field";
 import SelectField from "../../../../shared/components/select-field";
 import {useDispatch} from "react-redux";
 import {setSelectedBookIds, setFormData} from "../../model/slice.ts";
@@ -44,14 +43,30 @@ const UserForm = () => {
             layout="horizontal"
             style={{maxWidth: 600}}
         >
-            <FormField required={true} value={data.lastname} label={"Фамилия"} onChangeField={onChangeField("lastname")} name={"last_name"}/>
-            <FormField required={true} value={data.firstname} label={"Имя"} onChangeField={onChangeField("firstname")} name={"first_name"}/>
-            <FormField required={true} value={data.surname} label={"Отчество"} onChangeField={onChangeField("surname")} name={"sur_name"}/>
+
+
+
+            <Form.Item name={"last_name"} label={"Фамилия"}
+                       rules={[{required: true, message: "Заполните поле"}]}>
+                <Input value={data.lastname} onChange={onChangeField("lastName")}/>
+            </Form.Item>
+
+            <Form.Item name={"first_name"} label={"Имя"}
+                       rules={[{required: true, message: "Заполните поле"}]}>
+                <Input value={data.firstname} onChange={onChangeField("firstName")}/>
+            </Form.Item>
+
+
+            <Form.Item name={"sur_name"} label={"Отчество"}
+                       rules={[{required: true, message: "Заполните поле"}]}>
+                <Input value={data.firstname} onChange={onChangeField("surName")}/>
+            </Form.Item>
 
             <DateFormat label={"Дата рождения"} value={data.birthDate} onChangeField={onChangeField("birthDate")}></DateFormat>
 
 
             <SelectField
+                text={"Авторы"}
                 mode="multiple"
                 data={books? books : []}
                 displayField={"book_name"}

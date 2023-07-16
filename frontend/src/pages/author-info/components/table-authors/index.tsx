@@ -14,8 +14,9 @@ interface BookTableProps {
     data: Author[],
     isLoading: boolean,
     error: FetchBaseQueryError | SerializedError | string,
-    remove: (id: string) => void
+    remove: (id: string | number) => void
     update: (item: Author) => void
+
 }
 
 
@@ -27,7 +28,7 @@ function AuthorTable({isLoading, error, data, remove, update}: BookTableProps) {
     const [editingItem, setEditingItem] = useState(null);
 
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: number) => {
         remove(id)
     };
 
@@ -41,7 +42,7 @@ function AuthorTable({isLoading, error, data, remove, update}: BookTableProps) {
         try {
             console.log(values)
             // Call the update mutation from the API hook
-            const updatedData = {id: values.id, firstname: values['first_name'], lastname: values['sur_name'], surname:values['first_name'] }
+            const updatedData = {id: values.id, firstname: values['first_name'], lastname: values['last_name'], surname:values['sur_name'] }
             await update(updatedData);
             message.success("Author added successfully");
             form.resetFields();
@@ -95,7 +96,7 @@ function AuthorTable({isLoading, error, data, remove, update}: BookTableProps) {
                         shape="circle"
                         onClick={() => handleEdit(record)}
                     />
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record)}>
                         <Button icon={<DeleteFilled/>} shape="circle" danger></Button>
                     </Popconfirm>
                 </div>

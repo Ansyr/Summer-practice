@@ -68,7 +68,6 @@ class AuthorController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { firstname, lastname, surname } = req.body;
-            console.log(req.body);
             try {
                 const authorRepository = (0, typeorm_1.getRepository)(author_1.Author);
                 const author = yield authorRepository.findOne({
@@ -96,21 +95,18 @@ class AuthorController {
             const { id } = req.params;
             try {
                 const authorRepository = (0, typeorm_1.getRepository)(author_1.Author);
-                const author = yield authorRepository.findOne({ where: { id: id }, relations: ["books"] });
+                const author = yield authorRepository.findOne({ where: { id }, relations: ["books"] });
                 if (!author) {
                     return res.status(404).json({ message: "Author not found" });
                 }
                 const bookRepository = (0, typeorm_1.getRepository)(book_1.Book);
-                const bookIds = author.books.map((book) => book.id);
                 const saleRepository = (0, typeorm_1.getRepository)(sale_1.Sale);
-                yield bookRepository.delete(bookIds);
-                yield Promise.all(bookIds.map((bookId) => __awaiter(this, void 0, void 0, function* () {
-                    const book = yield bookRepository.findOne({ where: { id: bookId }, relations: ["sale"] });
-                    if (book) {
-                        const saleId = book.sale.id;
-                        yield saleRepository.delete(saleId);
+                yield Promise.all(author.books.map((book) => __awaiter(this, void 0, void 0, function* () {
+                    if (book.sale) {
+                        yield saleRepository.remove(book.sale);
                     }
                 })));
+                yield bookRepository.remove(author.books);
                 yield authorRepository.remove(author);
                 return res.status(200).json({ message: "Author and associated books and sales deleted successfully" });
             }

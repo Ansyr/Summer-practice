@@ -1,15 +1,14 @@
 import {
     Button,
-    Form, message,
+    Form, Input, message,
 } from 'antd';
 
 import {ChangeEvent} from "react";
-import FormField from "../../../../shared/components/form-field";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../../shared/hooks/redux.ts";
 import {setFormData} from "../../model/slice.ts";
 import {useCreateAuthorMutation} from "../../model/api.ts";
-import {useFetchTableAuthorQuery} from "../../../author-info/model/api.ts";
+
 
 
 const AuthorForm = () => {
@@ -45,11 +44,23 @@ const AuthorForm = () => {
                 layout="horizontal"
                 style={{maxWidth: 600}}
             >
-                <FormField name={"last_name"} label={"Фамилия автора"} value={data.lastname} onChangeField={onChangeField("lastname")} required={true}/>
 
-                <FormField name={"first_name"} label={"Имя автора"} value={data.firstname} onChangeField={onChangeField("firstname")} required={true}/>
+                <Form.Item name={"last_name"} label={"Фамилия автора"} rules={[{ required: true, message: "Заполните поле" },{type: "string"}]}>
+                    <Input value={data.lastname} onChange={onChangeField("lastname")} />
+                </Form.Item>
 
-                <FormField name={"sur_name"} label={"Отчество автора"} value={data.surname} onChangeField={onChangeField("surname")} required={true} />
+
+                <Form.Item name={"first_name"} label={"Имя автора"} rules={[{ required: true, message: "Заполните поле" },{type: "string"}]}>
+                    <Input value={data.firstname} onChange={onChangeField("firstname")} />
+                </Form.Item>
+
+
+                <Form.Item name={"sur_name"} label={"Отчество автора"} rules={[{ required: true, message: "Заполните поле" },{type: "string"}]}>
+                    <Input value={data.surname} onChange={onChangeField("surname")}/>
+                </Form.Item>
+
+
+
 
             </Form>
             <Button onClick={onSubmit}>Добавить</Button>

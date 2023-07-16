@@ -1,6 +1,6 @@
 import {
     Button,
-    Form, message,
+    Form, Input, message,
 } from 'antd';
 
 import {ChangeEvent} from "react";
@@ -9,7 +9,6 @@ import {useAppSelector} from "../../../../shared/hooks/redux.ts";
 import {setFormData, setSelectedAuthorIds} from "../../model/slice.ts";
 import {useFetchAuthorQuery} from "../../../create-author/model/api.ts";
 import SelectField from "../../../../shared/components/select-field";
-import FormField from "../../../../shared/components/form-field";
 import {useCreateBookMutation} from "../../model/api.ts";
 
 
@@ -32,18 +31,18 @@ const BookForm = () => {
     const onSubmit = async () => {
         try {
             // Reset the form fields
-
-            if (data.authorId === null){
-                throw new Error ()
+            console.log(data)
+            if (data.authorId === null) {
+                throw new Error()
             }
             await createBookApi({
-                    bookName:data.bookName,
-                    publishYear: data.publishYear,
-                    price: Number(data.price),
-                    discount: Number(data.discount),
-                    authorId: Number(data.authorId),
-                    amount: Number(data.amount)
-                })
+                bookName: data.bookName,
+                publishYear: data.publishYear,
+                price: Number(data.price),
+                discount: Number(data.discount),
+                authorId: Number(data.authorId),
+                amount: Number(data.amount)
+            })
 
             await form.validateFields()
             // Show success message
@@ -66,21 +65,36 @@ const BookForm = () => {
                 layout="horizontal"
                 style={{maxWidth: 600}}
             >
-                <FormField label={"Название книги"} onChangeField={onChangeField("bookName")} value={data.bookName}
-                           required={true} name={"book_name"}/>
-                <FormField label={"Год публикации"} onChangeField={onChangeField("publishYear")}
-                           value={data.publishYear} required={true} name={"publish_date"}/>
+                <Form.Item name={"book_name"} label={"Название книги"}
+                           rules={[{required: true, message: "Заполните поле"}, {type: "string"}]}>
+                    <Input value={data.bookName} onChange={onChangeField("bookName")}/>
+                </Form.Item>
+
+
+                <Form.Item name={"publish_year"} label={"Год публикации"}
+                           rules={[{required: true, message: "Заполните поле"}]}>
+                    <Input value={data.publishYear} onChange={onChangeField("publishYear")} type={"number"} min={0}/>
+                </Form.Item>
+
+
                 <SelectField data={authors ? authors : []} onChange={handleSelectChange} valueField={"id"}
                              displayField={"last_name"} text={"Автор"}/>
 
-                <FormField label={"Стоимость"} onChangeField={onChangeField("price")}
-                           value={data.price} required={true} name={"price"}/>
+                <Form.Item name={"price"} label={"Стоимость"}
+                           rules={[{required: true, message: "Заполните поле"},]}>
+                    <Input value={data.price} onChange={onChangeField("price")} type={"number"} min={0}/>
+                </Form.Item>
 
-                <FormField label={"Скидка"} onChangeField={onChangeField("discount")}
-                           value={data.price} required={false} name={"discount"}/>
+                <Form.Item name={"discount"} label={"Скидка"}>
+                    <Input value={data.discount} onChange={onChangeField("discount")} type={"number"} min={0}/>
+                </Form.Item>
 
-                <FormField label={"Количество"} onChangeField={onChangeField("amount")}
-                           value={data.amount} required={true} name={"amount"}/>
+                <Form.Item name={"amount"} label={"Количество"}
+                           rules={[{required: true, message: "Заполните поле"}]}>
+                    <Input value={data.amount} onChange={onChangeField("amount")} type={"number"} min={0}/>
+                </Form.Item>
+
+
             </Form>
             <Button onClick={onSubmit}>Добавить</Button>
         </>

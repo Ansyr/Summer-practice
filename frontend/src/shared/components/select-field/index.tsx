@@ -1,13 +1,8 @@
-import {Col, Select, Typography} from "antd";
-import styles from "./styles.module.scss"
+import { Form, Select} from "antd";
 
 const SelectField = ({ data, valueField, displayField, onChange,selectedValues,text,...props} : any) => {
     return (
-        <div className={styles.selectFieldText}>
-            <Col>
-                <Typography>{text}</Typography>
-            </Col>
-
+        <Form.Item label={text}>
             <Select
 
                 style={{ width: "50%", height: "50%" }}
@@ -29,7 +24,7 @@ const SelectField = ({ data, valueField, displayField, onChange,selectedValues,t
                     );
                 })}
             </Select>
-        </div>
+        </Form.Item>
     );
 };
 

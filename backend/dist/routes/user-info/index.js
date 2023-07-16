@@ -5,4 +5,4 @@ const router = new Router();
 const userInfoController = require("../../controllers/user-info");
 router.post('/', userInfoController.create);
 module.exports = router;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.ts.js.map

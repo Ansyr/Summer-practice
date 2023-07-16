@@ -2,7 +2,6 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {Author} from "../../../shared/interfaces/author";
 
 
-
 export const authorApi = createApi({
     reducerPath: 'authorApi',
     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000/'}),
@@ -16,8 +15,8 @@ export const authorApi = createApi({
             }),
             invalidatesTags: ['Author']
         }),
-        fetchAuthor: build.query<Author[],Author[]> ({
-            query: () =>( {
+        fetchAuthor: build.query<Author[], Author[]>({
+            query: () => ({
                 url: '/author',
             }),
             providesTags: () => ['Author']
@@ -33,10 +32,23 @@ export const authorApi = createApi({
             }),
             invalidatesTags: ['Author'],
         }),
+
+        deleteAuthor: build.mutation<Author, Author>({
+            query: (author: Author) => ({
+                url: `/author/delete/${author.id}`,
+                method: 'DELETE',
+                body: JSON.stringify(author),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ['Author'],
+
+        })
     }),
 })
 
 export const {
-    useCreateAuthorMutation,useFetchAuthorQuery,useUpdateAuthorMutation
+    useCreateAuthorMutation, useFetchAuthorQuery, useUpdateAuthorMutation,useDeleteAuthorMutation
 } = authorApi
 

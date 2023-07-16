@@ -7,9 +7,9 @@ const initialState =  {
         bookName: '',
         publishYear: '',
         authorId: null,
-        price: null,
-        discount: null,
-        amount: null,
+        price: 0,
+        discount: 0,
+        amount: 0,
     },
 
 }

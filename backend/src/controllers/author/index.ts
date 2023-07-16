@@ -44,7 +44,7 @@ class AuthorController {
             lastname,
             surname
         } = req.body
-        console.log(req.body)
+
         try {
             const authorRepository = getRepository(Author)
             const author = await authorRepository.findOne({
@@ -76,31 +76,26 @@ class AuthorController {
 
         try {
             const authorRepository = getRepository(Author);
-            const author = await authorRepository.findOne({where:{id:id}, relations: ["books"] });
+            const author = await authorRepository.findOne({ where: { id }, relations: ["books"] });
 
             if (!author) {
                 return res.status(404).json({ message: "Author not found" });
             }
 
-            // Delete associated sales and books
             const bookRepository = getRepository(Book);
-            const bookIds = author.books.map((book) => book.id);
             const saleRepository = getRepository(Sale);
 
-            await bookRepository.delete(bookIds);
-            // Delete sales associated with the books
+            // Delete sales associated with the books first
             await Promise.all(
-                bookIds.map(async (bookId) => {
-                    const book = await bookRepository.findOne({where:{id:bookId}, relations: ["sale"] });
-                    if (book) {
-                        const saleId = book.sale.id
-                        await saleRepository.delete(saleId);
+                author.books.map(async (book) => {
+                    if (book.sale) {
+                        await saleRepository.remove(book.sale);
                     }
                 })
             );
 
             // Delete the books
-
+            await bookRepository.remove(author.books);
 
             // Delete the author
             await authorRepository.remove(author);
@@ -111,6 +106,7 @@ class AuthorController {
             return res.status(500).json({ message: "Internal server error" });
         }
     }
+
 }
 
 
