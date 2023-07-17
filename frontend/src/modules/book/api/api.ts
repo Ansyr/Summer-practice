@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {Book, BookWithPrice} from "./type.ts";
+import {Book, BookWithPrice, PopularBook} from "./type.ts";
 
 
 
@@ -52,12 +52,7 @@ export const bookFormApi = createApi({
             providesTags: () => ['book']
         }),
 
-        getPopularBooks: build.query<Book[], Book[]>({
-            query: () => ({
-                url: '/book/allbook',
-            }),
-            providesTags: () => ['book']
-        }),
+
     }),
 })
 

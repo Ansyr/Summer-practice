@@ -15,6 +15,7 @@ import UserInfo from "../pages/user-info";
 import UserCreate from "../pages/create-user";
 import CreateAuthor from "../pages/create-author";
 import AuthorInfo from "../pages/author-info";
+import Statistic from "../pages/book-statistic";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
                         <Route path={"/authoradd"} element={<CreateAuthor/>}/>
                         <Route path={"/tableuser"} element={<UserInfo/>}/>
                         <Route path={"/bookinfo"} element={<BookInfo/>}/>
-                        <Route path={"/popularbook"} element={<BookStatistic/>}/>
+                        <Route path={"/popularbook"} element={<Statistic/>}/>
                         <Route path={"/authorinfo"} element={<AuthorInfo/>} />
                     </Routes>
 
