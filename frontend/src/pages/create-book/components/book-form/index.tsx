@@ -27,12 +27,11 @@ const BookForm = () => {
     const {data: authors} = useFetchAuthorQuery([])
     const [createBookApi] = useCreateBookMutation()
 
-
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
         setData({...data, [name]: e.currentTarget.value});
     };
 
-    const handleSelectChange = (selectedOptions: number) => {
+    const handleSelectChange = (selectedOptions: any) => {
        setSelect(selectedOptions);
     };
     const onSubmit = async () => {
@@ -41,7 +40,7 @@ const BookForm = () => {
             if (select === null) {
                 throw new Error()
             }
-            await createBookApi({
+           const updateData =  await createBookApi({
                 bookName: data.bookName,
                 publishYear: data.publishYear,
                 price: Number(data.price),
@@ -50,9 +49,17 @@ const BookForm = () => {
                 amount: Number(data.amount)
             })
 
+
+           //@ts-ignore
+           if(updateData?.error?.status === 409){
+               message.error("Book already exist");
+               form.resetFields();
+               return
+           }
+
             await form.validateFields()
             // Show success message
-            message.success("Author added successfully");
+            message.success("Book added successfully");
             form.resetFields();
         } catch (error) {
             // Show error message

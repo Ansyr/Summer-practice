@@ -8,7 +8,7 @@ const UserInfo = () => {
     console.log(userInfo)
     return (
         <div>
-            <UserTable data={userInfo? userInfo : []} error={error ? error : ''} isLoading={isLoading}/>
+            <UserTable data={userInfo? userInfo : []} error={error ? error : ''} isLoading={isLoading}  />
         </div>
     );
 };

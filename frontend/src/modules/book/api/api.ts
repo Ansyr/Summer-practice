@@ -51,6 +51,13 @@ export const bookFormApi = createApi({
             }),
             providesTags: () => ['book']
         }),
+
+        getPopularBooks: build.query<Book[], Book[]>({
+            query: () => ({
+                url: '/book/allbook',
+            }),
+            providesTags: () => ['book']
+        }),
     }),
 })
 

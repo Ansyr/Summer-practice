@@ -4,9 +4,10 @@ import {useState} from "react";
 import {DeleteFilled, EditOutlined} from "@ant-design/icons";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
-import {Author, AuthorApi} from "../../../../shared/interfaces/author";
+
 import {ColumnsType} from "antd/es/table";
 import UpdateDataAuthors from "../update-data-authors";
+import {Author, AuthorApi} from "../../../../modules/author/api/type.ts";
 
 
 
@@ -14,7 +15,7 @@ interface BookTableProps {
     data: Author[],
     isLoading: boolean,
     error: FetchBaseQueryError | SerializedError | string,
-    remove: (id: string | number) => void
+    remove: (id: Author) => void
     update: (item: Author) => void
 
 }
@@ -33,14 +34,13 @@ function AuthorTable({isLoading, error, data, remove, update}: BookTableProps) {
     };
 
 
-    const handleEdit = (item) => {
+    const handleEdit = (item: any) => {
         setEditingItem(item);
         setModalVisible(true);
     };
 
     const handleSave = async (values: AuthorApi) => {
         try {
-            console.log(values)
             // Call the update mutation from the API hook
             const updatedData = {id: values.id, firstname: values['first_name'], lastname: values['last_name'], surname:values['sur_name'] }
             await update(updatedData);

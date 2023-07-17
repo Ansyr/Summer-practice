@@ -19,10 +19,33 @@ export const userFormApi = createApi({
             }),
             invalidatesTags: ['user']
         }),
+        updateUser: build.mutation<UserApi, UserApi>({
+            query: (user: UserApi) => ({
+                url: `/user/update/${user.id}`,
+                method: 'PATCH',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ['user'],
+        }),
+        deleteUser: build.mutation<UserApi, UserApi>({
+            query: (user: UserApi) => ({
+                url: `/user/delete/${user.id}`,
+                method: 'DELETE',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ['user'],
+
+        }),
     }),
 })
 
 export const {
-    useCreateUserMutation
+    useCreateUserMutation,useUpdateUserMutation,useDeleteUserMutation
 } = userFormApi
 

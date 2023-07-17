@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
-import {Alert, Button, Form, Input, Modal, Popconfirm, Table} from "antd";
+import  {useState} from 'react';
+import {Alert, Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
 import {DeleteFilled, EditOutlined} from "@ant-design/icons";
-import UpdateDataBook from "../../../book-info/components/update-data-book";
 import {User} from "../../model/type.ts";
 import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 import {SerializedError} from "@reduxjs/toolkit";
+import UpdateDataUser from "../update-data-user";
+import {useDeleteUserMutation, useUpdateUserMutation} from "../../../../modules/user/api/api.ts";
+import {UserApi} from "../../../../modules/user/api/type.ts";
 
 interface UserTableProps {
     data: User[],
     isLoading: boolean,
     error: FetchBaseQueryError | SerializedError | string,
+
 }
 
 const UserTable = ({isLoading, data, error}: UserTableProps) => {
@@ -18,16 +21,35 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
     const [form] = Form.useForm();
     const [modalVisible, setModalVisible] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [update] = useUpdateUserMutation()
 
-    const handleDelete = (id: string) => {
-        console.log(123)
+    const [remove] = useDeleteUserMutation()
+    const handleDelete = (id: UserApi) => {
+        remove(id)
+        refetch()
     };
-    const handleEdit = (item) => {
+    const handleEdit = (item: any) => {
         setEditingItem(item);
         setModalVisible(true);
     };
 
-    const columns = [
+    const handleSave = async (values: UserApi) => {
+        try {
+            // Call the update mutation from the API hook
+            await update({...values});
+            message.success("User added successfully");
+            form.resetFields();
+            setModalVisible(false);
+
+        } catch (error) {
+            // Handle any error that occurred during the update
+            console.log("Update error:", error);
+            message.error("Failed to add author");
+        }
+    }
+
+
+    const columns : any = [
         {
             title: "Имя",
             key: ["first_name"],
@@ -44,7 +66,7 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
             //         String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
             // },
             responsive: ['lg'],
-            sorter: (val1: User, val2: User) => {
+            sorter: (val1: UserApi, val2: UserApi) => {
                 return val1.firstname <= val2.firstname
             }
         },
@@ -81,19 +103,27 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
                 return `${day}.${month}.${year}`;
             },
         },
-
-
-        // {
-        //     title: "Книги",
-        //     dataIndex: "books",
-        //     key: "books",
-        //     filteredValue: [searchText],
-        //     render: (books) => books.map((book) => book.book_name).join(", ")
-        //
-        // },
+        {
+            title: "Номер телефона",
+            dataIndex: ["phone_number"],
+            key: ["phone_number"],
+            filteredValue: [searchText],
+            sorter: (val1: User, val2: User) => {
+                return val1.phone_number > val2.phone_number
+            },
+        },
 
         {
-            render: (record) => (
+            title: "Книги",
+            dataIndex: "books",
+            key: "books",
+            filteredValue: [searchText],
+            render: (books: any) => books.map((book: any) => book.book_name).join(", ")
+
+        },
+
+        {
+            render: (record: any) => (
 
                 <div style={{display: "flex"}}>
                     <Button
@@ -102,7 +132,7 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
                         shape="circle"
                         onClick={() => handleEdit(record)}
                     />
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record)}>
                         <Button icon={<DeleteFilled/>} shape="circle" danger></Button>
                     </Popconfirm>
                 </div>
@@ -127,8 +157,8 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
                            scroll={{x: "max-content"}}></Table>
                     <Modal open={modalVisible} footer={null} onCancel={() => setModalVisible(false)}>
                         {editingItem && (
-                            <UpdateDataBook initialValues={editingItem}
-                                            onCancel={() => setModalVisible(false)}
+                            <UpdateDataUser initialValues={editingItem}
+                                            onCancel={() => setModalVisible(false)} onSave={handleSave}
                             />
                         )}
                     </Modal>

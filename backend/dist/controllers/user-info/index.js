@@ -24,4 +24,4 @@ class UserInfoController {
     }
 }
 module.exports = new UserInfoController();
-//# sourceMappingURL=index.ts.js.map
+//# sourceMappingURL=index.tsx.js.map

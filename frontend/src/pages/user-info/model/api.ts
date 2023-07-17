@@ -14,6 +14,7 @@ export const userInfoApi = createApi({
             providesTags: () => ["user"],
         })
     }),
+
 })
 
 export const {useFetchUserInfoQuery} = userInfoApi

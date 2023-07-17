@@ -8,7 +8,7 @@ const BookInfo = () => {
     const [deleteBook] = useDeleteBookMutation()
     const [updateBook] = useUpdateBookMutation()
     console.log(books)
-    const handleDeleteFullBookInfo = (id: string) => {
+    const handleDeleteFullBookInfo = (id: BookWithPrice) => {
         if (books) {
             deleteBook(id)
         }

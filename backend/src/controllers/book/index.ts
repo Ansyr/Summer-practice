@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {Book} from "../../models/enteties/book";
 import {Author} from "../../models/enteties/author";
-import {getRepository} from "typeorm";
+import {Equal, getRepository} from "typeorm";
 import {Sale} from "../../models/enteties/sale";
 import * as console from "console";
 
@@ -21,8 +21,17 @@ class BookController {
             }
         })
 
+        const duplicateBook = await bookRepository.findOne({
+            // @ts-ignore
+            where: {
+                book_name: bookName,
+                author: author,
+            },
+        });
 
-
+        if (duplicateBook) {
+            return res.status(409).json({ message: "Book already exists" });
+        }
 
 
         const book = bookRepository.create({
@@ -54,7 +63,6 @@ class BookController {
             const books = await bookRepository.find({
                 relations: ["author", "sale", "users"],
             });
-            console.log(books)
 
             return res.json(books);
         } catch (error) {
@@ -113,7 +121,6 @@ class BookController {
     }
 
     async delete(req: Request, res: Response) {
-        console.log(123)
         const { id } = req.params;
 
         try {

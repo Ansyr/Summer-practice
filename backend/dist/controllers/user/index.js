@@ -41,7 +41,6 @@ const console = __importStar(require("console"));
 class UserController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
             const { firstname, lastname, surname, phoneNumber, birthDate, degreeEducation, booksIds, region, city, microdistrict, houseNum, apartment } = req.body;
             try {
                 const userRepository = (0, typeorm_1.getRepository)(user_1.User);

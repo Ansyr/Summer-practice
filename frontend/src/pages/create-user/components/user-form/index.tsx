@@ -9,11 +9,13 @@ import DateFormat from "../../../../shared/components/date-format";
 import {useGetAllBooksQuery} from "../../../../modules/book/api/api.ts";
 import PhoneNumberInput from "../../../../shared/components/phone-number-input";
 import {useCreateUserMutation} from "../../../../modules/user/api/api.ts";
+import {useFetchUserInfoQuery} from "../../../user-info/model/api.ts";
 
 
 const UserForm = () => {
     const [form] = Form.useForm()
     const {data: dataBooks} = useGetAllBooksQuery([])
+    const {refetch} = useFetchUserInfoQuery([])
     const [createUser] = useCreateUserMutation()
     const [data, setData] = useState({
         lastname: '',
@@ -32,7 +34,6 @@ const UserForm = () => {
     const [select, setSelect] = useState([])
     const handleSelectChange = (selectedOptions: []) => {
         const selectedIds = selectedOptions.map((option) => option);
-        console.log(selectedIds)
         setSelect(selectedIds);
     };
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +43,7 @@ const UserForm = () => {
 
     const handleFormSubmit = async () => {
         console.log(select)
-        const updatedData = {
+        const updatedData : any = {
             lastname: data.lastname,
             firstname: data.firstname,
             surname: data.surname,
@@ -57,8 +58,8 @@ const UserForm = () => {
             booksIds: select
         };
         try {
-            console.log(updatedData)
             await createUser(updatedData);
+            refetch()
             // Reset the form fields
             await form.validateFields()
             // Show success message
@@ -98,7 +99,7 @@ const UserForm = () => {
                 <Input value={data.surname} onChange={onChangeField("surname")}/>
             </Form.Item>
 
-            <DateFormat label={"Дата рождения"} value={data.birthDate} onChange={onChangeField("birthDate")}/>
+            <DateFormat label={"Дата рождения"} value={data.birthDate} onChange={onChangeField("birthDate")} name={"birth_date"}/>
 
             <Form.Item name={"degree_education"} label={"Образование"}
                        rules={[{required: true, message: "Заполните поле"}]}>

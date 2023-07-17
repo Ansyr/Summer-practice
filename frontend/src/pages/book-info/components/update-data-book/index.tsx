@@ -7,7 +7,7 @@ import SelectField from "../../../../shared/components/select-field";
 
 interface UpdateDataBookProps{
     initialValues: BookWithPrice[],
-    onSave: (values: BookWithPrice[]) => void,
+    onSave: (values: BookWithPrice) => void,
     onCancel: ()=> void
 }
 
@@ -15,7 +15,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
     const [form] = Form.useForm();
     const {data: authors} = useFetchAuthorQuery([])
     const [select,setSelect] = useState(null)
-    const handleSelectChange = (selectedOptions) => {
+    const handleSelectChange = (selectedOptions: any) => {
         setSelect(selectedOptions);
     };
 
@@ -44,7 +44,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
 
         return (
             <Form form={form} layout="vertical">
-                <Form.Item name={["id"]} ><Typography >Изменить данные о книге</Typography></Form.Item>
+                <Form.Item name={["id"]} ><Typography>Изменить данные о книге</Typography></Form.Item>
                 <SelectField data={authors ? authors : []} onChange={handleSelectChange} valueField={"id"}
                              displayField={"last_name"} text={"Автор"}/>
 
@@ -69,8 +69,6 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
                 <Form.Item name={["sale","amount"]}  label="Скидка">
                     <Input type={"number"} min={0}/>
                 </Form.Item>
-
-
 
 
                 <Button type="primary" onClick={handleSave}>
