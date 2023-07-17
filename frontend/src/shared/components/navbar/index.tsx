@@ -41,8 +41,8 @@ const items: MenuItem[] = [
         ],
     ),
     getItem('Статистика', '12',        <BookOutlined/>,[
-            getItem("Продаваемые книги", "13",<Link to={"/popularbook"}><PlusCircleOutlined/></Link>),
-            getItem("Таблица", "14",<Link to={"/bookinfo"}><TableOutlined /></Link>)
+            getItem("Статистика", "13",<Link to={"/popularbook"}><PlusCircleOutlined/></Link>),
+
         ],
     )
 ];

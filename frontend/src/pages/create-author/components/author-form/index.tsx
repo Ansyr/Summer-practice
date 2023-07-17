@@ -55,7 +55,7 @@ const AuthorForm = () => {
                 </Form.Item>
 
 
-                <Form.Item name={"sur_name"} label={"Отчество автора"} rules={[{ required: true, message: "Заполните поле" },{type: "string"}]}>
+                <Form.Item name={"sur_name"} label={"Отчество автора"}>
                     <Input value={data.surname} onChange={onChangeField("surname")}/>
                 </Form.Item>
 

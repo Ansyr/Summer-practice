@@ -46,7 +46,7 @@ export function ReadableCityChart() {
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
+                label: 'Люди',
                 data: readableCityData?.map(() => faker.datatype.number({ min: 0, max: 10 })),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',

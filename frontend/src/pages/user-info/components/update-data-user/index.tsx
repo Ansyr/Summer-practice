@@ -26,6 +26,8 @@ const UpdateDataUser = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
         form
             .validateFields()
             .then((values) => {
+
+                console.log(values)
                 const updatedValues = {
                     ...values,
                     booksIds: select // Add selected option to the form values

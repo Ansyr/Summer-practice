@@ -1,4 +1,4 @@
-import  {useState} from 'react';
+import {useState} from 'react';
 import {Alert, Button, Form, Input, message, Modal, Popconfirm, Table} from "antd";
 import {DeleteFilled, EditOutlined} from "@ant-design/icons";
 import {User} from "../../model/type.ts";
@@ -35,6 +35,7 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
 
     const handleSave = async (values: UserApi) => {
         try {
+            console.log(values)
             // Call the update mutation from the API hook
             await update({...values});
             message.success("User added successfully");
@@ -49,7 +50,7 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
     }
 
 
-    const columns : any = [
+    const columns: any = [
         {
             title: "Имя",
             key: ["first_name"],
@@ -112,7 +113,42 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
                 return val1.phone_number > val2.phone_number
             },
         },
-
+        {
+            title: "Образование",
+            dataIndex: ["user_info", "degree_education"],
+            key: ["education"],
+            filteredValue: [searchText],
+            sorter: (val1: User, val2: User) => {
+                return val1.userInfo.degreeEducation > val2.userInfo.degreeEducation
+            },
+        },
+        {
+            title: "Область",
+            dataIndex: ["user_info", "location", "region"],
+            key: ["region"],
+            filteredValue: [searchText],
+            sorter: (val1: User, val2: User) => {
+                return val1.userInfo.location.region > val2.userInfo.location.region
+            },
+        },
+        {
+            title: "Город",
+            dataIndex: ["user_info", "location", "city"],
+            key: ["city"],
+            filteredValue: [searchText],
+            sorter: (val1: User, val2: User) => {
+                return val1.userInfo.location.city > val2.userInfo.location.city
+            },
+        },
+        {
+            title: "Номер дома",
+            dataIndex: ["user_info", "location", "house_num"],
+            key: ["city"],
+            filteredValue: [searchText],
+            sorter: (val1: User, val2: User) => {
+                return val1.userInfo.location.houseNum > val2.userInfo.location.houseNum
+            },
+        },
         {
             title: "Книги",
             dataIndex: "books",

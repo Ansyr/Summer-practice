@@ -9,7 +9,6 @@ import {Route, Routes} from "react-router-dom";
 import NavBar from "../shared/components/navbar";
 import styles from "./styles.module.scss"
 import BookInfo from "../pages/book-info";
-import BookStatistic from "../pages/book-statistic";
 import BookCreatePage from "../pages/create-book";
 import UserInfo from "../pages/user-info";
 import UserCreate from "../pages/create-user";

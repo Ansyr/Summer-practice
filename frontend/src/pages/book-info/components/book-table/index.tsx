@@ -68,9 +68,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                     String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
             },
             responsive: ['lg'],
-            sorter: (val1: any, val2: any) => {
-                return val1.author.firstname <= val2.author.firstname
-            }
+            sorter: (a: any, b: any) => a.first_name.localeCompare(b.first_name),
         },
         {
             title: "Фамилия",
