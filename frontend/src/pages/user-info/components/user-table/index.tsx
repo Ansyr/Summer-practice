@@ -12,10 +12,11 @@ interface UserTableProps {
     data: User[],
     isLoading: boolean,
     error: FetchBaseQueryError | SerializedError | string,
+    refetch: () => void;
 
 }
 
-const UserTable = ({isLoading, data, error}: UserTableProps) => {
+const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
 
     const [searchText, setSearchText] = useState('')
     const [form] = Form.useForm();
@@ -41,6 +42,7 @@ const UserTable = ({isLoading, data, error}: UserTableProps) => {
             message.success("User added successfully");
             form.resetFields();
             setModalVisible(false);
+            refetch()
 
         } catch (error) {
             // Handle any error that occurred during the update

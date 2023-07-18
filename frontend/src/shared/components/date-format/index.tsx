@@ -3,7 +3,7 @@ import {Form} from "antd";
 interface DateFormatProps {
     label: string
     value: string
-    name:string
+    name:string | string[]
     onChange: (name: any) => void,
 }
 

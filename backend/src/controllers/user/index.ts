@@ -69,8 +69,11 @@ class UserController {
             // Assign the books to the user
             user.books = books;
 
+
+
             // Save the user
             await userRepository.save(user);
+
 
             return res.status(201).json(user);
         } catch (error) {
@@ -93,13 +96,14 @@ class UserController {
     }
 
     async update(req: Request, res: Response) {
+        console.log(req.body)
         const {id} = req.params;
         const {
             firstname,
             lastname,
             surname,
             phoneNumber,
-            // birthDate,
+            birthDate,
             degreeEducation,
             booksIds,
             region,
@@ -128,7 +132,7 @@ class UserController {
             user.last_name = lastname;
             user.sur_name = surname;
             user.phone_number = phoneNumber;
-            // user.user_info.birth_date = new Date(birthDate); // Convert birthDate to Date object
+            user.user_info.birth_date = birthDate; // Convert birthDate to Date object
             user.user_info.degree_education = degreeEducation;
 
             const location = user.user_info.location;
@@ -149,7 +153,6 @@ class UserController {
                 user.books = books;
                 await userRepository.save(user);
             }
-
             return res.status(200).json(user);
         } catch (error) {
             console.error(error);

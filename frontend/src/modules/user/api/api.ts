@@ -5,7 +5,7 @@ import {UserApi} from "./type.ts";
 export const userFormApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:4000/'}),
-    tagTypes: ['user'],
+    tagTypes: ['user','statistic'],
     endpoints: (build) => ({
 
         createUser: build.mutation<UserApi,UserApi> ({
@@ -17,7 +17,7 @@ export const userFormApi = createApi({
                     'Content-Type': 'application/json',
                 },
             }),
-            invalidatesTags: ['user']
+            invalidatesTags: ['user', 'statistic'],
         }),
         updateUser: build.mutation<UserApi, UserApi>({
             query: (user: UserApi) => ({

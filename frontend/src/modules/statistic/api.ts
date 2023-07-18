@@ -1,3 +1,4 @@
+
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {PopularBook, ReadableCity} from "./type.ts";
 
@@ -13,14 +14,14 @@ export const statisticApi = createApi({
             query: () => ({
                 url: '/statistic/popularbooks',
             }),
-            providesTags: () => ['statistic']
+            providesTags: ['statistic', 'user'],
         }),
 
         getReadableCity: build.query<ReadableCity[],ReadableCity[]>({
             query: () => ({
                 url: '/statistic/readablecity',
             }),
-            providesTags: () => ['statistic']
+            providesTags: ['statistic', 'user'],
         }),
 
 
@@ -28,6 +29,6 @@ export const statisticApi = createApi({
 })
 
 export const {
-   useGetPopularBooksQuery,useGetReadableCityQuery
+    useGetPopularBooksQuery,useGetReadableCityQuery
 } = statisticApi
 

@@ -41,19 +41,25 @@ export const options = {
 export function ReadableCityChart() {
     const {data: readableCityData} = useGetReadableCityQuery([])
     const labels = readableCityData?.map(item => item.city)
-
+    const dataSet = readableCityData?.map(item => item.count)
+    console.log("1231",dataSet)
+    console.log(readableCityData)
+    console.log(labels)
     const data = {
         labels,
         datasets: [
             {
-                label: 'Люди',
-                data: readableCityData?.map(() => faker.datatype.number({ min: 0, max: 10 })),
+                label: 'Города',
+                data: dataSet,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
         ],
     };
     console.log(readableCityData)
+    if (!readableCityData) {
+        return null; // Если данные еще не загружены, не отображаем график
+    }
     return(
         <div style={{ width: 700 }}>
             <Typography.Title level={3} style={{ textAlign: 'center', marginBottom: 20 }}>

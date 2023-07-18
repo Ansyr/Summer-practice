@@ -10,9 +10,11 @@ import {useGetAllBooksQuery} from "../../../../modules/book/api/api.ts";
 import PhoneNumberInput from "../../../../shared/components/phone-number-input";
 import {useCreateUserMutation} from "../../../../modules/user/api/api.ts";
 import {useFetchUserInfoQuery} from "../../../user-info/model/api.ts";
+import {useGetReadableCityQuery} from "../../../../modules/statistic/api.ts";
 
 
 const UserForm = () => {
+    const {data: readableCityData,refetch:refetchStatistic} = useGetReadableCityQuery([])
     const [form] = Form.useForm()
     const {data: dataBooks} = useGetAllBooksQuery([])
     const {refetch} = useFetchUserInfoQuery([])
@@ -57,13 +59,17 @@ const UserForm = () => {
             apartment: Number(data.apartament),
             booksIds: select
         };
+        if(!updatedData.birthDate){
+            message.error("Failed to add user");
+            return
+        }
         try {
             await createUser(updatedData);
             refetch()
             // Reset the form fields
             await form.validateFields()
             // Show success message
-
+            refetchStatistic()
             message.success("Author added successfully");
             form.resetFields();
         } catch (error) {

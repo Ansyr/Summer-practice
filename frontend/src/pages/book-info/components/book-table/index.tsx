@@ -58,10 +58,10 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
             dataIndex: ["author", "first_name"],
             filteredValue: [searchText],
             onFilter: (value: string, obj: any) => {
-                return String(obj.author.firstname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.author.lastname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.author.surname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.bookName).toLowerCase().includes(value.toLowerCase()) ||
+                return String(obj.author?.firstname).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.author?.lastname).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.author?.surname).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj?.bookName).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.price).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.amount).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.discount).toLowerCase().includes(value.toLowerCase()) ||
@@ -94,7 +94,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
             filteredValue: [searchText],
             sorter: (val1: any, val2: any) => {
                 console.log(val1.bookName)
-                return val1.bookName > val2.bookName
+                return val1?.bookName > val2?.bookName
             }
         }, {
             title: "Год публикации",
