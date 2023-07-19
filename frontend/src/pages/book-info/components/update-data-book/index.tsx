@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {BookWithPrice} from "../../../../modules/book/api/type.ts";
 import {useFetchAuthorQuery} from "../../../../modules/author/api/api.ts";
 import SelectField from "../../../../shared/components/select-field";
+import DateFormat from "../../../../shared/components/date-format";
 
 
 interface UpdateDataBookProps{
@@ -35,7 +36,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
                 console.log("Form validation error:", error);
             });
     };
-
+    console.log(initialValues)
 
 
     useEffect(() => {
@@ -46,7 +47,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
             <Form form={form} layout="vertical">
                 <Form.Item name={["id"]} ><Typography>Изменить данные о книге</Typography></Form.Item>
                 <SelectField data={authors ? authors : []} onChange={handleSelectChange} valueField={"id"}
-                             displayField={"last_name"} text={"Автор"}/>
+                             displayField={"last_name"} text={"Автор"} initialValue={select}/>
 
                 <Form.Item name={"book_name"}  label="Название книги" rules={[{ required: true, message: "Заполните поле" }]}>
                     <Input />
@@ -70,7 +71,7 @@ const UpdateDataBook = ({ initialValues, onSave, onCancel } : UpdateDataBookProp
                     <Input type={"number"} min={0}/>
                 </Form.Item>
 
-
+                <DateFormat label={"Дата добавления"} name={["addDate"]} onChange={()=>{}}/>
                 <Button type="primary" onClick={handleSave}>
                     Save
                 </Button>

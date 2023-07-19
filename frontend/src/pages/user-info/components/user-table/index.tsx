@@ -58,19 +58,25 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["first_name"],
             dataIndex: ["first_name"],
             filteredValue: [searchText],
-            // onFilter: (value: string, obj: User) => {
-            //     return String(obj.author.firstname).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.author.lastname).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.author.surname).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.bookName).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.sale.price).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.sale.amount).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.sale.discount).toLowerCase().includes(value.toLowerCase()) ||
-            //         String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
-            // },
+            onFilter: (value: string, obj: User) => {
+                return (
+                    String(obj.first_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.last_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.sur_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.user_info.birth_date).includes(value) ||
+                    String(obj.phone_number).includes(value) ||
+                    String(obj.user_info.degree_education).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.user_info.location.region).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.user_info.location.city).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.user_info.location.house_num).includes(value) ||
+                    obj.books.some((book: any) =>
+                        String(book.book_name).toLowerCase().includes(value.toLowerCase())
+                    )
+                );
+            },
             responsive: ['lg'],
             sorter: (val1: UserApi, val2: UserApi) => {
-                return val1.firstname <= val2.firstname
+                return val1.first_name <= val2.first_name
             }
         },
         {
@@ -79,7 +85,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             dataIndex: ["last_name"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.lastname > val2.lastname
+                return val1.last_name > val2.last_name
             }
         }, {
             title: "Отчество",
@@ -87,7 +93,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["author", "sur_name"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.surname > val2.surname
+                return val1.sur_name > val2.sur_name
             }
 
         }, {
@@ -96,7 +102,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["birth_date"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.userInfo.birthDate > val2.userInfo.birthDate
+                return new Date(val1.user_info.birth_date) - new Date(val2.user_info.birth_date);
             },
             render: (birthDate: string) => {
                 const date = new Date(birthDate);
@@ -121,7 +127,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["education"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.userInfo.degreeEducation > val2.userInfo.degreeEducation
+                return val1.user_info.degree_education > val2.user_info.degree_education
             },
         },
         {
@@ -130,7 +136,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["region"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.userInfo.location.region > val2.userInfo.location.region
+                return val1.user_info.location.region > val2.user_info.location.region
             },
         },
         {
@@ -139,7 +145,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["city"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.userInfo.location.city > val2.userInfo.location.city
+                return val1.user_info.location.city > val2.user_info.location.city
             },
         },
         {
@@ -148,7 +154,7 @@ const UserTable = ({isLoading, data, error,refetch}: UserTableProps) => {
             key: ["city"],
             filteredValue: [searchText],
             sorter: (val1: User, val2: User) => {
-                return val1.userInfo.location.houseNum > val2.userInfo.location.houseNum
+                return val1.user_info.location.house_num > val2.user_info.location.house_num
             },
         },
         {

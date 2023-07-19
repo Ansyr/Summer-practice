@@ -58,44 +58,37 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
             dataIndex: ["author", "first_name"],
             filteredValue: [searchText],
             onFilter: (value: string, obj: any) => {
-                return String(obj.author?.firstname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.author?.lastname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.author?.surname).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj?.bookName).toLowerCase().includes(value.toLowerCase()) ||
+                return String(obj.author?.first_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.author?.last_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj.author?.sur_name).toLowerCase().includes(value.toLowerCase()) ||
+                    String(obj?.book_name).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.price).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.amount).toLowerCase().includes(value.toLowerCase()) ||
                     String(obj.sale.discount).toLowerCase().includes(value.toLowerCase()) ||
-                    String(obj.publishYear).toLowerCase().includes(value.toLowerCase())
+                    String(obj.publish_year).toLowerCase().includes(value.toLowerCase())
             },
             responsive: ['lg'],
-            sorter: (a: any, b: any) => a.first_name.localeCompare(b.first_name),
+            sorter: (a: any, b: any) => a.author.first_name.localeCompare(b.author.first_name),
         },
         {
             title: "Фамилия",
             key: ["author", "last_name"],
             dataIndex: ["author", "last_name"],
             filteredValue: [searchText],
-            sorter: (val1: any, val2: any) => {
-                return val1.author.lastname > val2.author.lastname
-            }
+            sorter: (a: any, b: any) => a.author.last_name.localeCompare(b.author.last_name),
         }, {
             title: "Отчество",
             dataIndex: ["author", "sur_name"],
             key: ["author", "sur_name"],
             filteredValue: [searchText],
-            sorter: (val1: any, val2: any) => {
-                return val1.author.surname > val2.author.surname
-            }
+            sorter: (a: any, b: any) => a.author.sur_name.localeCompare(b.author.sur_name),
 
         }, {
             title: "Книга",
             dataIndex: ["book_name"],
             key: ["book_name"],
             filteredValue: [searchText],
-            sorter: (val1: any, val2: any) => {
-                console.log(val1.bookName)
-                return val1?.bookName > val2?.bookName
-            }
+            sorter: (a: any, b: any) => a.book_name.localeCompare(b.book_name),
         }, {
             title: "Год публикации",
             key: ["publish_year"],
@@ -104,7 +97,7 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
 
             responsive: ['lg'],
             sorter: (val1: any, val2: any) => {
-                return val1.publishYear > val2.publishYear
+                return val1.publish_year > val2.publish_year
             }
 
         }, {
@@ -132,7 +125,22 @@ function BookTable({isLoading, error, data, remove, update}: BookTableProps) {
                 return val1.sale.amount > val2.sale.amount
             }
         },
-
+        {
+            title: "Дата добавления",
+            key: ["added_date"],
+            dataIndex: ["added_date"],
+            filteredValue: [searchText],
+            sorter: (val1: any, val2: any) => {
+                return val1.sale.amount > val2.sale.amount
+            },
+            render: (birthDate: string) => {
+                const date = new Date(birthDate);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}.${month}.${year}`;
+            },
+        },
         {
             render: (record: any) => (
 

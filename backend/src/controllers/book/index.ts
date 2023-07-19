@@ -87,7 +87,7 @@ class BookController {
     async update(req: Request, res: Response) {
         console.log(req.body)
         const {id} = req.params;
-        const {book_name, publish_year, authorId, price, discount, amount} = req.body;
+        const {book_name, publish_year, authorId, price, discount, amount,addDate} = req.body;
         try {
             const bookRepository = getRepository(Book);
 
@@ -104,6 +104,7 @@ class BookController {
 
             // Update the book properties
             book.book_name = book_name;
+            book.added_date = addDate
             book.publish_year = publish_year;
             book.author = authorId;
             book.sale.price = price;

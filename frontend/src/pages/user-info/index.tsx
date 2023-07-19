@@ -4,8 +4,6 @@ import {useFetchUserInfoQuery} from "./model/api.ts";
 
 const UserInfo = () => {
     const {data: userInfo, error, isLoading,refetch} = useFetchUserInfoQuery([])
-
-    console.log(userInfo)
     return (
         <div>
             <UserTable data={userInfo? userInfo : []} error={error ? error : ''} isLoading={isLoading} refetch={refetch}/>

@@ -8,6 +8,7 @@ import {useFetchAuthorQuery} from "../../../../modules/author/api/api.ts";
 import SelectField from "../../../../shared/components/select-field";
 import {useCreateBookMutation} from "../../../../modules/book/api/api.ts";
 import DateFormat from "../../../../shared/components/date-format";
+import {useGetPredictSaleQuery} from "../../../../modules/statistic/api.ts";
 
 
 
@@ -28,6 +29,7 @@ const BookForm = () => {
 
     const {data: authors} = useFetchAuthorQuery([])
     const [createBookApi] = useCreateBookMutation()
+    const {refetch} = useGetPredictSaleQuery()
 
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
         console.log(data.addDate)
@@ -53,7 +55,7 @@ const BookForm = () => {
                 amount: Number(data.amount),
                 addDate: data.addDate
             })
-            console.log(updateData)
+
 
            //@ts-ignore
            if(updateData?.error?.status === 409){
@@ -64,6 +66,7 @@ const BookForm = () => {
 
             await form.validateFields()
             // Show success message
+            refetch()
             message.success("Book added successfully");
             form.resetFields();
         } catch (error) {
