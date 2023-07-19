@@ -9,9 +9,8 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 import {useGetReadableCityQuery} from "../../../../modules/statistic/api.ts";
-import {Typography} from "antd";
+import {Card, Typography} from "antd";
 
 ChartJS.register(
     CategoryScale,
@@ -29,10 +28,6 @@ export const options = {
         legend: {
             position: 'top' as const,
         },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-        },
     },
 };
 
@@ -42,17 +37,14 @@ export function ReadableCityChart() {
     const {data: readableCityData} = useGetReadableCityQuery([])
     const labels = readableCityData?.map(item => item.city)
     const dataSet = readableCityData?.map(item => item.count)
-    console.log("1231",dataSet)
-    console.log(readableCityData)
-    console.log(labels)
     const data = {
         labels,
         datasets: [
             {
                 label: 'Города',
                 data: dataSet,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgb(99,161,255)',
+                backgroundColor: 'rgb(255,255,255)',
             },
         ],
     };
@@ -61,11 +53,11 @@ export function ReadableCityChart() {
         return null; // Если данные еще не загружены, не отображаем график
     }
     return(
-        <div style={{ width: 700 }}>
+        <Card style={{backgroundColor: "rgb(225,225,225)",width:'100%'}}>
             <Typography.Title level={3} style={{ textAlign: 'center', marginBottom: 20 }}>
                 Самый читающий слой
             </Typography.Title>
             <Line options={options} data={data} />;
-        </div>
+        </Card>
     )
 }

@@ -8,21 +8,19 @@ import * as console from "console";
 
 class BookController {
     async create(req: Request, res: Response) {
-        const {bookName, publishYear, authorId, discount, price, amount} = req.body;
-        const bookRepository = getRepository(Book)
+        const { bookName, publishYear, authorId, discount, price, amount, addDate } = req.body;
+        const bookRepository = getRepository(Book);
 
-        const authorRepository = getRepository(Author)
-        const saleRepository = getRepository(Sale)
-
+        const authorRepository = getRepository(Author);
+        const saleRepository = getRepository(Sale);
 
         const author = await authorRepository.findOne({
             where: {
-                id: authorId
-            }
-        })
+                id: authorId,
+            },
+        });
 
         const duplicateBook = await bookRepository.findOne({
-            // @ts-ignore
             where: {
                 book_name: bookName,
                 author: author,
@@ -33,29 +31,31 @@ class BookController {
             return res.status(409).json({ message: "Book already exists" });
         }
 
-
         const book = bookRepository.create({
             book_name: bookName,
             publish_year: publishYear,
+            added_date: addDate,
         });
+
         const sale = saleRepository.create({
             price: price,
             discount: discount,
-            amount: amount
-        })
+            amount: amount,
+        });
+
         if (!author) {
-            return res.status(500).json({message: 'User not found'});
+            return res.status(500).json({ message: "User not found" });
         }
 
+        book.author = author;
 
-        book.author = author
-
-        await saleRepository.save(sale)
-        book.sale = sale
+        await saleRepository.save(sale);
+        book.sale = sale;
         await bookRepository.save(book);
 
         return res.status(201).json(book);
     }
+
 
     async showAllInfoBook(req: Request, res: Response) {
         try {

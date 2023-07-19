@@ -14,7 +14,7 @@ import UserInfo from "../pages/user-info";
 import UserCreate from "../pages/create-user";
 import CreateAuthor from "../pages/create-author";
 import AuthorInfo from "../pages/author-info";
-import Statistic from "../pages/book-statistic";
+import Statistic from "../pages/statistic";
 const { Header, Sider, Content } = Layout;
 
 function App() {

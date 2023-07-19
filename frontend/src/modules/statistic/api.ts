@@ -1,6 +1,6 @@
 
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {PopularBook, ReadableCity} from "./type.ts";
+import {PopularBook, PredictSale, ReadableCity} from "./type.ts";
 
 
 
@@ -24,11 +24,18 @@ export const statisticApi = createApi({
             providesTags: ['statistic', 'user'],
         }),
 
+        getPredictSale: build.query<PredictSale[],PredictSale[]>({
+            query: () => ({
+                url: '/statistic/predictsale',
+            }),
+            providesTags: ['statistic', 'user'],
+        }),
+
 
     }),
 })
 
 export const {
-    useGetPopularBooksQuery,useGetReadableCityQuery
+    useGetPopularBooksQuery,useGetReadableCityQuery,useGetPredictSaleQuery
 } = statisticApi
 

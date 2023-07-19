@@ -8,4 +8,10 @@ export interface PopularBook{
 export interface ReadableCity{
     city: string,
     count: string | number
+
+}
+
+export interface PredictSale{
+    year: number,
+    salesVolume: number
 }

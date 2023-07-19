@@ -7,8 +7,9 @@ import {
 } from 'chart.js';
 import { PolarArea } from 'react-chartjs-2';
 import {  } from '../../../../modules/book/api/api.ts';
-import { Typography } from 'antd';
+import {Card, Typography} from 'antd';
 import {useGetPopularBooksQuery} from "../../../../modules/statistic/api.ts";
+import styles from './styles.module.scss'
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
@@ -48,12 +49,12 @@ const AreaPopularBooks = () => {
     };
 
     return (
-        <div style={{ width: 400 }}>
-            <Title level={3} style={{ textAlign: 'center', marginBottom: 20 }}>
-                Популярные книги
-            </Title>
-            <PolarArea width={200} height={150} data={data} options={options} />
-        </div>
+            <Card style={{backgroundColor: "rgb(225,225,225)",width:'100%'}}>
+                <Title level={3} style={{ textAlign: 'center', marginBottom: 20 }}>
+                    Популярные книги
+                </Title>
+                <PolarArea width={200} height={150} data={data} options={options} />
+            </Card>
     );
 };
 

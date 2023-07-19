@@ -37,6 +37,9 @@ export class Book extends BaseEntity {
     })
     users:User[]
 
+    @CreateDateColumn()
+    added_date: Date;
+
     @ManyToOne(() => Author, (author) => author.books)
     @JoinColumn({ name: "author_id" })
     author: Author;

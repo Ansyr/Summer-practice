@@ -7,6 +7,7 @@ import {ChangeEvent, useState} from "react";
 import {useFetchAuthorQuery} from "../../../../modules/author/api/api.ts";
 import SelectField from "../../../../shared/components/select-field";
 import {useCreateBookMutation} from "../../../../modules/book/api/api.ts";
+import DateFormat from "../../../../shared/components/date-format";
 
 
 
@@ -20,6 +21,7 @@ const BookForm = () => {
         price: 0,
         discount: 0,
         amount: 0,
+        addDate: "",
     })
 
     const [select,setSelect] = useState(null)
@@ -28,6 +30,7 @@ const BookForm = () => {
     const [createBookApi] = useCreateBookMutation()
 
     const onChangeField = (name: string) => (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(data.addDate)
         setData({...data, [name]: e.currentTarget.value});
     };
 
@@ -36,6 +39,7 @@ const BookForm = () => {
     };
     const onSubmit = async () => {
         try {
+
             // Reset the form fields
             if (select === null) {
                 throw new Error()
@@ -46,9 +50,10 @@ const BookForm = () => {
                 price: Number(data.price),
                 discount: Number(data.discount),
                 authorId: Number(select),
-                amount: Number(data.amount)
+                amount: Number(data.amount),
+                addDate: data.addDate
             })
-
+            console.log(updateData)
 
            //@ts-ignore
            if(updateData?.error?.status === 409){
@@ -98,7 +103,7 @@ const BookForm = () => {
                 </Form.Item>
 
                 <Form.Item name={"discount"} label={"Скидка"}>
-                    <Input value={data.discount} onChange={onChangeField("discount")} type={"number"} min={0}/>
+                    <Input value={data.discount} onChange={onChangeField("discount")} type={"number"} min={0} max={99}/>
                 </Form.Item>
 
                 <Form.Item name={"amount"} label={"Количество"}
@@ -106,7 +111,7 @@ const BookForm = () => {
                     <Input value={data.amount} onChange={onChangeField("amount")} type={"number"} min={0}/>
                 </Form.Item>
 
-
+                <DateFormat label={"Дата публикации"} value={data.addDate} onChange={onChangeField("addDate")} name={"added_date"}/>
             </Form>
             <Button onClick={onSubmit}>Добавить</Button>
         </>
